@@ -5,5 +5,5 @@ baseurl: ""
 url: ""
 exclude: ["node_modules", "gulpfile.js", "package.json"]
 plugins: [jekyll-paginate]
-paginate: 5
+paginate: 2
 markdown: kramdown

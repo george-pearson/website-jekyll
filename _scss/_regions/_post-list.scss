@@ -8,6 +8,7 @@
         padding: 1em 1em 3em;
         &:hover{
             background: $color--lightgrey;
+            @extend %transition-duration;
         }
     }
 
