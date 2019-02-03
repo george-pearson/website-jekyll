@@ -2,14 +2,12 @@
 layout: default
 title: Home
 ---
-
 <section class="intro">
     <div class="maboi-brackets"></div>
     <p>This is a blog about software development, science, and other musings by <a href="/about">George Pearson</a></p>
 </section>
-
-<div class="home">
-    <ul class="post-list--home">
+<section class="post-list">
+    <ul>
     {% for post in paginator.posts %}
         <li>
             <a href="{{ post.url | prepend: site.baseurl }}">
@@ -17,8 +15,11 @@ title: Home
                     {{ post.title }}
                 </h2>
                 <p class="post-meta">Posted on {{ post.date | date: "%B %-d, %Y" }}</p>
+                <p class="post-subtitle">{{ post.subtitle }}</p>
             </a>
         </li>
     {% endfor %}
     </ul>
-</div>
+</section>
+
+

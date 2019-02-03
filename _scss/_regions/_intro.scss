@@ -13,11 +13,7 @@
     background-image: url('../../assets/images/maboi-brackets.svg');
     max-width: 500px;
     height: 320px;
-    margin: 2em auto 1em;
+    margin: 1em auto 1em;
     background-size: 100%;
     background-repeat: no-repeat;
-
-    @include breakpoint(sm) {
-		margin: 1em auto 1em;
-	}
 }

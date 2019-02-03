@@ -22,4 +22,12 @@
         color: $color--lightest;
         background-position: 0 100%;
     }
-} 
+}
+
+h2 {
+    @extend %font-title;
+    @include fontsize(26);
+    @include breakpoint(sm) {
+      @include fontsize(18)
+    }
+  }
