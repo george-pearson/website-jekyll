@@ -1,3 +1,10 @@
 body {
-    color: $color--skyblue;
+    @extend %font-basic;
+    @include fontsize(12);
+    margin: 0;
+    padding: 0;
+}
+
+%transition-duration {
+    transition-duration: 0.5s;
 }
