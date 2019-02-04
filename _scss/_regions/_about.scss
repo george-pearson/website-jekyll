@@ -1,0 +1,32 @@
+.about {
+    @extend %center;
+    color: $color--darkgrey;
+
+    .about-img {
+        margin-top: 1em;
+        height: 10em;
+        width: 10em;
+        border-radius: 50%;
+        padding: 0.25em;
+        border: 2px solid $color--lightgrey;
+    }
+
+    a {
+        @extend %blue-links;
+    }
+
+    .about-header {
+        margin: 0;
+    }
+
+    .about-text {
+        @extend %center;
+        max-width: 24em;
+    }
+
+    .about-smile {
+        &:hover{
+            color: $color--skyblue;
+        }
+    }
+}
