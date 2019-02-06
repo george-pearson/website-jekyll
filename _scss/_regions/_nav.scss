@@ -6,6 +6,7 @@ nav {
         margin: 0;
         padding-left: 0;
         padding-top: 0.5em;
+        padding-bottom: 0.5em;
         @include breakpoint(sm){
             padding-top: 0;
         }
