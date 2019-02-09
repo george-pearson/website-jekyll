@@ -6,6 +6,7 @@ sass.compiler    = require('node-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var rename       = require('gulp-rename');
 var cssnano      = require('gulp-cssnano');
+var sourcemaps = require('gulp-sourcemaps');
 
 /**
  * Build the Jekyll site, html/md files compiled to _site.
@@ -40,11 +41,34 @@ gulp.task('sass', function () {
 });
 
 /**
+ * Dev compile .scss files.
+ */
+gulp.task('dev:sass', function () {
+    return gulp.src('_scss/main.scss')
+        .pipe(sourcemaps.init())
+        .pipe(sass().on('error', sass.logError))
+        .pipe(sourcemaps.write())
+        .pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
+        .pipe(rename('main.min.css'))
+        .pipe(gulp.dest('assets/css/'));
+});
+
+/**
  * Watch scss files & recompile, run Jekyll.
  * Watch html/md files, run Jekyll.
  */
 gulp.task('watch', function () {
     gulp.watch('_scss/**/*.scss', gulp.series('sass', 'jekyll'));
+    gulp.watch(['index.html', '_layouts/*.html', '_includes/*.html', '_posts/**/*', 'about/*', 'photos/*'], gulp.series('jekyll'));
+});
+
+/**
+ * Dev
+ * Watch scss files & recompile, run Jekyll.
+ * Watch html/md files, run Jekyll.
+ */
+gulp.task('dev:watch', function () {
+    gulp.watch('_scss/**/*.scss', gulp.series('dev:sass', 'jekyll'));
     gulp.watch(['index.html', '_layouts/*.html', '_includes/*.html', '_posts/**/*', 'about/*', 'photos/*'], gulp.series('jekyll'));
 });
 
@@ -54,3 +78,8 @@ gulp.task('watch', function () {
  * Default task, running just `gulp` will trigger.
  */
 gulp.task('default', gulp.parallel('jekyll', 'watch', 'serve'));
+
+/**
+ * Dev task, running `gulp dev` will trigger.
+ */
+gulp.task('dev', gulp.parallel('jekyll', 'dev:watch', 'serve'));

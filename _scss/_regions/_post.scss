@@ -1,0 +1,8 @@
+.post{
+    display: grid;
+    grid-template-columns: 1fr 740px 1fr;
+    > * {
+        grid-column: 2;
+    }
+    grid-gap: 1em;
+}
