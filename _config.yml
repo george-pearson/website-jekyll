@@ -7,3 +7,4 @@ exclude: ["node_modules", "gulpfile.js", "package.json"]
 plugins: [jekyll-paginate]
 paginate: 2
 markdown: kramdown
+highlighter: rouge

@@ -1,8 +1,38 @@
-.post{
-    display: grid;
-    grid-template-columns: 1fr 740px 1fr;
-    > * {
-        grid-column: 2;
+.post {
+    margin: 0 auto 0;
+    max-width: $post-width;
+    padding: 1em;
+    p {
+        color: $color--darkgrey;
     }
-    grid-gap: 1em;
+    
+
+    .post-header {
+        color: $color--skyblue;
+        margin: 0;
+        h1 {
+            margin: 0 auto;
+        }
+        .post-date {
+            color: $color--skyblue;
+            @include fontsize(20);
+            margin: 0 auto;
+            @include breakpoint(sm) {
+                @include fontsize(16);
+            }
+        }
+    }
+
+    h2 {
+        color: $color--darkblue;
+        margin: 0 auto;
+    }
+
+    a {
+        @extend %blue-links;
+    }
+
+    .footnotes {
+        color: $color--darkgrey;
+    }
 }
