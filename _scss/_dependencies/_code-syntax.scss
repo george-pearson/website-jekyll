@@ -1,3 +1,12 @@
+/* Inline code */
+code[class*="highlighter-rouge"] {
+    background: $color--lightgrey;
+    color: $color--darkgrey;
+    outline: 1px solid $color--darkgrey;
+    padding: 2px 2px;
+}
+
+/* Multiline code */
 pre {
     border: 2px solid $color--lightgrey;
     border-radius: 20px;
@@ -7,6 +16,7 @@ pre {
     code {
         display: block;
         padding: .8em .8em;
+        white-space: pre-wrap;
     }
 }
 

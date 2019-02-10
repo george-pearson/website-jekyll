@@ -44,3 +44,8 @@ h2 {
       @include fontsize(18)
     }
 }
+
+p {
+    color: $color--darkgrey;
+    line-height: 1.5;
+}

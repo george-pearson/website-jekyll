@@ -1,7 +1,6 @@
 .intro{
     p {
         @extend %center;
-        color: $color--darkgrey;
         max-width: 360px;
     }
     a {
