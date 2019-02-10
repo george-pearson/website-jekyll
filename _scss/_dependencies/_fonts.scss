@@ -19,7 +19,7 @@
     @extend %transition-duration;
 
     &:hover{
-        color: $color--lightest;
+        color: $color--white;
         background-position: 0 100%;
     }
 }

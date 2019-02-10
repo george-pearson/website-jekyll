@@ -32,6 +32,20 @@
         @extend %blue-links;
     }
 
+    ul { 
+        list-style: none;
+        color:$color--darkgrey;
+    }
+
+    ul li::before {
+        content: "●"; 
+        color: $color--skyblue;
+        display: inline-block;
+        width: 1em;
+        margin-left: -1em;
+        margin-right: 0.5em;
+    }
+
     .footnotes {
         color: $color--darkgrey;
     }
