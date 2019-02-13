@@ -13,10 +13,10 @@ pre {
     margin-bottom: 1em;
     position: relative;
     background: $color--darkpurple;
+    overflow: auto;
     code {
         display: block;
         padding: .8em .8em;
-        white-space: pre-wrap;
     }
 }
 
