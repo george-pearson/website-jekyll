@@ -1,1 +1,39 @@
-Hello World
+---
+layout: default
+title: Home
+---
+<section class="intro">
+    <img class="maboi-brackets" src="../../assets/images/maboi-brackets.svg" alt="Maboi-brackets">
+    <p>This is a blog about software development, science, and other musings by <a href="/about">George Pearson</a></p>
+</section>
+<section class="post-list">
+    <ul>
+    {% for post in paginator.posts %}
+        <li>
+            <a href="{{ post.url | prepend: site.baseurl }}">
+                <h2 class="post-title">
+                    {{ post.title }}
+                </h2>
+                <p class="post-meta">Posted on {{ post.date | date: "%B %-d, %Y" }}</p>
+                <p class="post-subtitle">{{ post.subtitle }}</p>
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+</section>
+<section class="pager">
+    {% if paginator.total_pages > 1 %}
+    <ul>
+        {% if paginator.previous_page %}
+        <li class="previous">
+            <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}"><i class="fas fa-arrow-left"></i> Newer Posts</a>
+        </li>
+        {% endif %}
+        {% if paginator.next_page %}
+        <li class="next">
+            <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older Posts <i class="fas fa-arrow-right"></i></a>
+        </li>
+        {% endif %}
+    </ul>
+    {% endif %}
+</section>

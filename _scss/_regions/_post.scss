@@ -1,0 +1,75 @@
+.post {
+    padding: 15px;
+    display: grid;
+    grid-template-columns: 
+    1fr 
+    minmax($post-minwidth/2, $post-maxwidth/2) 
+    minmax($post-minwidth/2, $post-maxwidth/2) 
+    1fr;
+    > * {
+        grid-column: 2 / span 2;
+    }
+
+    .half-width-left {
+        grid-column: 2 / span 1;
+        padding-right: 1em;
+        @include breakpoint(sm){
+            grid-column: 2 / span 2;
+            padding-right: 0;
+        }
+    }
+    .half-width-right {
+        grid-column: 3 / span 1;
+        padding-left: 1em;
+        @include breakpoint(sm){
+            grid-column: 2 / span 2;
+            padding-left: 0;
+        }
+    }
+
+    .post-header {
+        color: $color--skyblue;
+        h1 {
+            margin: 0;
+        }
+        .post-date {
+            color: $color--skyblue;
+            @include fontsize(20);
+            margin: 0 auto;
+            @include breakpoint(sm) {
+                @include fontsize(16);
+            }
+        }
+    }
+
+    h2 {
+        color: $color--darkblue;
+        margin: 0;
+    }
+
+    a {
+        @extend %blue-links;
+    }
+
+    ul { 
+        list-style: none;
+        color:$color--darkgrey;
+    }
+
+    ul li::before {
+        content: "●"; 
+        color: $color--skyblue;
+        display: inline-block;
+        width: 1em;
+        margin-left: -1em;
+        margin-right: 0.5em;
+    }
+
+    .footnotes {
+        color: $color--darkgrey;
+    }
+
+    figure {
+        margin: 1em 0 1em 0;
+    }
+}

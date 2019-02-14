@@ -1,0 +1,44 @@
+nav {
+    position: absolute;
+	top: 1rem;
+    right: 1rem;
+    ul {
+        margin: 0;
+        padding-left: 0;
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
+        @include breakpoint(sm){
+            padding-top: 0;
+        }
+    }
+    li {
+		display: inline-block;
+        margin-left: 1em;
+    }
+    a {
+        color: $color--skyblue;
+        text-decoration: none;
+        &:after {
+			@extend %transition-duration;
+			content: "";
+			background: currentColor;
+			width: 0%;
+			height: 2px;
+			display: block;
+		}
+
+		&.active:after,
+		&:hover:after {
+			width: 105%;
+		}
+    }
+
+    
+
+    @include breakpoint(sm){
+		position: relative;
+		right: 0;
+		top: 0;
+        margin: initial;
+	}
+}
