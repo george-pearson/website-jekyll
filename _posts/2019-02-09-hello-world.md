@@ -75,7 +75,7 @@ gulp.task("sass", function () {
 ## Photos
 <figure class="half-width-left"><img style="width:100%;" src="/assets/images/photos/Sunset.jpg" /></figure>
 <p class="half-width-right">
-One thing I thought I'd share on this blog is some <a href="/Photos">photos</a> I've taken in my travels. In the future I'd like to develop that area into a gallery of some kind. The photos have been compressed using 
+One thing I thought I'd share on this blog is some <a href="/Photos">photos</a> I've taken on my travels. In the future I'd like to develop that area into a gallery of some kind. The photos have been compressed using 
 <a href="https://squoosh.app/">Squoosh</a> making them take up less space and load quickly (hopefully).
 </p>
 
