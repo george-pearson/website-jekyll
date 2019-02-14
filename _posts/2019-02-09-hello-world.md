@@ -72,6 +72,13 @@ gulp.task("sass", function () {
 });
 ```
 
+## Photos
+<figure class="half-width-left"><img style="width:100%;" src="/assets/images/photos/Sunset.jpg" /></figure>
+<p class="half-width-right">
+One thing I thought I'd share on this blog is some <a href="/Photos">photos</a> I've taken in my travels. In the future I'd like to develop that area into a gallery of some kind. The photos have been compressed using 
+<a href="https://squoosh.app/">Squoosh</a> making them take up less space and load quickly (hopefully).
+</p>
+
 ## Conclusion
 
 In fact creating this website was a lot easier than I imagined thanks to all the great freely available open source tools on the web. Now that I started writing about some of these tools I realised most of them probably need an entire post to be explained with any detail. So I might be doing some "idiots guide to..." posts in the near future. Anyhow hope you enjoyed my first post and are looking forward to the next instalment. 😏
