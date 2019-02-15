@@ -6,7 +6,8 @@ sass.compiler    = require('node-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var rename       = require('gulp-rename');
 var cssnano      = require('gulp-cssnano');
-var sourcemaps = require('gulp-sourcemaps');
+var sourcemaps   = require('gulp-sourcemaps');
+var plumber      = require('gulp-plumber');
 
 /**
  * Build the Jekyll site, html/md files compiled to _site.
@@ -33,7 +34,8 @@ gulp.task('serve', () => {
  */
 gulp.task('sass', function () {
     return gulp.src('_scss/main.scss')
-        .pipe(sass().on('error', sass.logError))
+        .pipe(plumber())
+        .pipe(sass())
         .pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
         .pipe(cssnano())
         .pipe(rename('main.min.css'))
@@ -45,8 +47,9 @@ gulp.task('sass', function () {
  */
 gulp.task('dev:sass', function () {
     return gulp.src('_scss/main.scss')
+        .pipe(plumber())
         .pipe(sourcemaps.init())
-        .pipe(sass().on('error', sass.logError))
+        .pipe(sass())
         .pipe(sourcemaps.write())
         .pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
         .pipe(rename('main.min.css'))
