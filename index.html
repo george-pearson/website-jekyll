@@ -1,39 +1,57 @@
----
-layout: default
-title: Home
----
-<section class="intro">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width", initial-scale=1.0>
+    <title>George Pearson</title>
+    <link rel="stylesheet" href="/assets/css/main.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico">
+</head>
+
+  <body>
+    <header>
+    <a href="/" aria-label="home"><div class="ma-boi"></div></a>
+    <nav>
+    <ul role="navigation" class="hidden">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/photos">Photos</a></li>
+    </ul>
+</nav>
+</header>
+		<main role="main">
+			<section class="intro">
     <img class="maboi-brackets" src="../../assets/images/maboi-brackets.svg" alt="Maboi-brackets">
     <p>This is a blog about software development, science, and other musings by <a href="/about">George Pearson</a></p>
 </section>
 <section class="post-list">
     <ul>
-    {% for post in paginator.posts %}
+    
         <li>
-            <a href="{{ post.url | prepend: site.baseurl }}">
+            <a href="/2019/02/09/hello-world.html">
                 <h2 class="post-title">
-                    {{ post.title }}
+                    Hello World!
                 </h2>
-                <p class="post-meta">Posted on {{ post.date | date: "%B %-d, %Y" }}</p>
-                <p class="post-subtitle">{{ post.subtitle }}</p>
+                <p class="post-meta">Posted on February 9, 2019</p>
+                <p class="post-subtitle">My first blog post on this site. I go over how I made my website and what I learnt along the way.</p>
             </a>
         </li>
-    {% endfor %}
+    
     </ul>
 </section>
 <section class="pager">
-    {% if paginator.total_pages > 1 %}
-    <ul>
-        {% if paginator.previous_page %}
-        <li class="previous">
-            <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}"><i class="fas fa-arrow-left"></i> Newer Posts</a>
-        </li>
-        {% endif %}
-        {% if paginator.next_page %}
-        <li class="next">
-            <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older Posts <i class="fas fa-arrow-right"></i></a>
-        </li>
-        {% endif %}
-    </ul>
-    {% endif %}
+    
 </section>
+		</main>
+    <footer>
+        <ul class="social-icons">
+                <li><a aria-label="Github" href="https://github.com/george-pearson"><i class="fab fa-github-alt fa-3x"></i></a></li>
+                <li><a aria-label="LinkedIn" href="https://linkedin.com/in/george-pearson-27244a30/"><i class="fab fa-linkedin fa-3x"></i></a></li>
+                <li><a aria-label="Mail" href="/"><i class="far fa-envelope fa-3x"></i></a></li>
+        </ul>
+        <p>&copy; George Pearson 2019</p>
+</footer>
+  </body>
+</html>
