@@ -8,6 +8,16 @@ var rename       = require('gulp-rename');
 var cssnano      = require('gulp-cssnano');
 var sourcemaps   = require('gulp-sourcemaps');
 var plumber      = require('gulp-plumber');
+var ghPages      = require('gulp-gh-pages');
+
+/**
+ * Deploy to gh-pages branch.
+ */
+gulp.task('ghPages', function() {
+    return gulp.src("./_site/**/*")
+    .pipe(plumber())
+    .pipe(ghPages());
+});
 
 /**
  * Build the Jekyll site, html/md files compiled to _site.
@@ -19,7 +29,7 @@ gulp.task('jekyll', function (done) {
 /**
  * Launch the server and watch for changes to _site content.
  */
-gulp.task('serve', () => {
+gulp.task('serve', function() {
     browserSync.init({
       files: ['_site'],
       port: 4000,
@@ -86,3 +96,8 @@ gulp.task('default', gulp.parallel('jekyll', 'watch', 'serve'));
  * Dev task, running `gulp dev` will trigger.
  */
 gulp.task('dev', gulp.parallel('jekyll', 'dev:watch', 'serve'));
+
+/**
+ * Deploy to GitHub Pages.
+ */
+gulp.task('deploy', gulp.series('jekyll', 'ghPages'));
