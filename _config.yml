@@ -1,7 +1,7 @@
 
 name: George Pearson
 description: Development and scientific musings
-url: "georgepearson.co.uk"
+url: "https://georgepearson.co.uk"
 exclude: ["node_modules", "gulpfile.js", "package.json"]
 plugins: [jekyll-paginate]
 paginate: 2
