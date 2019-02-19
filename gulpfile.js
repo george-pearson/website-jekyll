@@ -90,12 +90,12 @@ gulp.task('dev:watch', function () {
 /**
  * Default task, running just `gulp` will trigger.
  */
-gulp.task('default', gulp.parallel('sass', 'jekyll', 'watch', 'serve'));
+gulp.task('default', gulp.parallel('jekyll', 'watch', 'serve'));
 
 /**
  * Dev task, running `gulp dev` will trigger.
  */
-gulp.task('dev', gulp.parallel('dev:sass', 'jekyll', 'dev:watch', 'serve'));
+gulp.task('dev', gulp.parallel('jekyll', 'dev:watch', 'serve'));
 
 /**
  * Deploy to GitHub Pages.
