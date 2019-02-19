@@ -10,7 +10,7 @@
     font-weight: 900;
 }
 
-%blue-links {
+.blue-link, %blue-link {
     color: $color--skyblue;
     text-decoration: none;
     background-image: linear-gradient(to top, $color--skyblue, $color--skyblue 50%, transparent 50%, transparent);

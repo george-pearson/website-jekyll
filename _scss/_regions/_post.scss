@@ -47,10 +47,6 @@
         margin: 0;
     }
 
-    a {
-        @extend %blue-links;
-    }
-
     ul { 
         list-style: none;
         color:$color--darkgrey;
@@ -67,6 +63,12 @@
 
     .footnotes {
         color: $color--darkgrey;
+        .reversefootnote {
+            @extend %blue-link;
+        }
+    }
+    .footnote{
+        @extend %blue-link;
     }
 
     figure {

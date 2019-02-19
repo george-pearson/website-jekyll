@@ -9,19 +9,19 @@ I've finally shipped! After about a month of what seems like going backwards and
 
 ## Jekyll and GitHub Pages
 
-So you want to know how I made this site right? Well initially I was thinking of using what I know from work - C# [ASP.NET MVC](https://dotnet.microsoft.com/apps/aspnet/mvc). But I figured it would be better if I learnt something new and all that server side setup and maintenance seemed like a pain. After a recommendation from a friend I found that GitHub offers **free hosting** for websites running [GitHub Pages](https://pages.github.com/). This seemed perfect for what I needed and no server side hassle! From GitHub Pages I was directed to [Jekyll](https://jekyllrb.com/). Jekyll is an amazing open source blogging tool, which among other things has inbuilt support for [Markdown](https://daringfireball.net/projects/markdown/) making writing blog posts a breeze[^1].
+So you want to know how I made this site right? Well initially I was thinking of using what I know from work - C# <a href="https://dotnet.microsoft.com/apps/aspnet/mvc" class="blue-link">ASP.NET MVC</a>. But I figured it would be better if I learnt something new and all that server side setup and maintenance seemed like a pain. After a recommendation from a friend I found that GitHub offers **free hosting** for websites running <a class="blue-link" href="https://pages.github.com/">GitHub Pages</a>. This seemed perfect for what I needed and no server side hassle! From GitHub Pages I was directed to <a href="https://jekyllrb.com/" class="blue-link">Jekyll</a>. Jekyll is an amazing open source blogging tool, which among other things has inbuilt support for <a href="https://daringfireball.net/projects/markdown/" class="blue-link">Markdown</a> making writing blog posts a breeze[^1].
 
-Here's an example of the JavaScript markdown which uses [Pygments](http://pygments.org/):
+Here's an example of the JavaScript markdown which uses <a href="https://pypi.org/project/Pygments/" class="blue-link">Pygments</a>:
 ```javascript
 (function() {
     console.log("Hello World! 😊");
 })();
 ```
 
-Jekyll also has a great HTML templating through use of [includes](https://jekyllrb.com/docs/includes/) and [layouts](https://jekyllrb.com/docs/step-by-step/04-layouts/) which help keep your project well structured.
+Jekyll also has a great HTML templating through use of <a href="https://jekyllrb.com/docs/includes/" class="blue-link">includes</a> and <a href="https://jekyllrb.com/docs/step-by-step/04-layouts/" class="blue-link">layouts</a> which help keep your project well structured.
 
 ## Sass and Gulp
-At work we predominantly use CSS libraries like [Bootstrap](https://getbootstrap.com/), but one thing I decided fairly early on was that I was going to develop all the CSS myself to improve my front-end skills. After a bit of online research I decided I was going to use the [Sass](https://sass-lang.com/) CSS templating language. Here's the Sass for those crazy blue links:
+At work we predominantly use CSS libraries like <a href="https://getbootstrap.com/" class="blue-link">Bootstrap</a>, but one thing I decided fairly early on was that I was going to develop all the CSS myself to improve my front-end skills. After a bit of online research I decided I was going to use the <a href="https://sass-lang.com/" class="blue-link">Sass</a> CSS templating language. Here's the Sass for those crazy blue links:
 ```css
 $color--skyblue: #00c1c1;
 $color--white: #fff;
@@ -30,7 +30,7 @@ $color--white: #fff;
     transition-duration: 0.5s;
 }
 
-%blue-links {
+.blue-link, %blue-link {
     color: $color--skyblue;
     text-decoration: none;
     background-image: linear-gradient(
@@ -51,7 +51,7 @@ $color--white: #fff;
 ```
 Sass makes your CSS code simpler with things like variables `$color--skyblue`, placeholder selectors `%transition-duration` and parent selectors `&:hover`. Essentially Sass means you don't have to repeat yourself so often!
 
-While investigating Sass I was directed to [Gulp](https://gulpjs.com/) a DevOps build tool. Gulp essentially allows you to automate command line tools for things like:
+While investigating Sass I was directed to <a href="https://gulpjs.com/" class="blue-link">Gulp</a> a DevOps build tool. Gulp essentially allows you to automate command line tools for things like:
 
 - Compiling Sass files to CSS when they change.
 - Minifying JavaScript and CSS files.
@@ -75,8 +75,8 @@ gulp.task("sass", function () {
 ## Photos
 <figure class="half-width-left"><img style="width:100%;" src="/assets/images/photos/Sunset.jpg" /></figure>
 <p class="half-width-right">
-One thing I thought I'd share on this blog is some <a href="/Photos">photos</a> I've taken on my travels. In the future I'd like to develop that area into a gallery of some kind. The photos have been compressed using 
-<a href="https://squoosh.app/">Squoosh</a> making them take up less space and load quickly (hopefully).
+One thing I thought I'd share on this blog is some <a href="/Photos" class="blue-link">photos</a> I've taken on my travels. In the future I'd like to develop that area into a gallery of some kind. The photos have been compressed using 
+<a href="https://squoosh.app/" class="blue-link">Squoosh</a> making them take up less space and load quickly (hopefully).
 </p>
 
 ## Conclusion
