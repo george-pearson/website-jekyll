@@ -9,6 +9,7 @@ var cssnano      = require('gulp-cssnano');
 var sourcemaps   = require('gulp-sourcemaps');
 var plumber      = require('gulp-plumber');
 var ghPages      = require('gulp-gh-pages');
+var uglify       = require("gulp-uglify");
 
 /**
  * Deploy to gh-pages branch.
@@ -37,6 +38,17 @@ gulp.task('serve', function() {
         baseDir: '_site'
       }
     });
+});
+
+/**
+ * Minify .js files.
+ */
+gulp.task("scripts", function() {
+    return gulp.src('_scripts/*.js')
+        .pipe(plumber())
+        .pipe(uglify())
+        .pipe(rename({extname:'.min.js'}))
+        .pipe(gulp.dest("assets/scripts/"));
 });
 
 /**
@@ -72,6 +84,7 @@ gulp.task('dev:sass', function () {
  */
 gulp.task('watch', function () {
     gulp.watch('_scss/**/*.scss', gulp.series('sass', 'jekyll'));
+    gulp.watch('_scripts/**/*.js', gulp.series('scripts', 'jekyll'));
     gulp.watch(['index.html', '_layouts/*.html', '_includes/*.html', '_posts/**/*', 'about/*', 'photos/*'], gulp.series('jekyll'));
 });
 
@@ -82,22 +95,21 @@ gulp.task('watch', function () {
  */
 gulp.task('dev:watch', function () {
     gulp.watch('_scss/**/*.scss', gulp.series('dev:sass', 'jekyll'));
+    gulp.watch('_scripts/**/*.js', gulp.series('scripts', 'jekyll'));
     gulp.watch(['index.html', '_layouts/*.html', '_includes/*.html', '_posts/**/*', 'about/*', 'photos/*'], gulp.series('jekyll'));
 });
-
-
 
 /**
  * Default task, running just `gulp` will trigger.
  */
-gulp.task('default', gulp.parallel('sass', 'jekyll', 'watch', 'serve'));
+gulp.task('default', gulp.parallel('sass', 'scripts', 'jekyll', 'watch', 'serve'));
 
 /**
  * Dev task, running `gulp dev` will trigger.
  */
-gulp.task('dev', gulp.parallel('dev:sass', 'jekyll', 'dev:watch', 'serve'));
+gulp.task('dev', gulp.parallel('dev:sass', 'scripts', 'jekyll', 'dev:watch', 'serve'));
 
 /**
  * Deploy to GitHub Pages.
  */
-gulp.task('deploy', gulp.series('sass', 'jekyll', 'ghPages'));
+gulp.task('deploy', gulp.series('sass', 'scripts', 'jekyll', 'ghPages'));

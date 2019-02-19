@@ -50,6 +50,8 @@
     ul { 
         list-style: none;
         color:$color--darkgrey;
+        line-height: 1.5;
+        margin-top: 0;
     }
 
     ul li::before {
@@ -61,11 +63,14 @@
         margin-right: 0.5em;
     }
 
-    .footnotes {
+    ol {
         color: $color--darkgrey;
-        .reversefootnote {
-            @extend %blue-link;
-        }
+        line-height: 1.5;
+        margin-top: 0;
+    }
+    
+    .reversefootnote {
+        @extend %blue-link;
     }
     .footnote{
         @extend %blue-link;

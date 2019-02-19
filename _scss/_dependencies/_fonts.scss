@@ -49,3 +49,23 @@ p {
     color: $color--darkgrey;
     line-height: 1.5;
 }
+
+.button {
+  @extend %font-basic;
+  color: $color--white;
+  background-color: $color--skyblue;
+  text-decoration: none;
+  border-radius: 3px;
+  border:1px solid $color--darkgrey;
+  display: inline-block;
+  cursor: pointer;
+  padding: 9px 23px;
+  &:hover{
+    @extend %transition-duration;
+    background-color: $color--darkblue
+  }
+  &:active {
+    position: relative;
+    top:1px;
+  }
+}
