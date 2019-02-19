@@ -36,24 +36,24 @@
     <div class="post-header">
         <h1>Hello World!</h1>
         <p class="post-date">February 9, 2019</p>
-        <a href="https://georgepearson.co.uk/2019/02/09/hello-world.html#disqus_thread">Comments</a>
+        <a class="blue-link" href="https://georgepearson.co.uk/2019/02/09/hello-world.html#disqus_thread">Comments</a>
     </div>
     <p>I’ve finally shipped! After about a month of what seems like going backwards and forwards I’ve made my first post on my brand new website. I’m going to try and do at least one post a month, and I plan to keep them relatively short. I can’t promise they won’t end up longer though if I really get into it!</p>
 
 <h2 id="jekyll-and-github-pages">Jekyll and GitHub Pages</h2>
 
-<p>So you want to know how I made this site right? Well initially I was thinking of using what I know from work - C# <a href="https://dotnet.microsoft.com/apps/aspnet/mvc">ASP.NET MVC</a>. But I figured it would be better if I learnt something new and all that server side setup and maintenance seemed like a pain. After a recommendation from a friend I found that GitHub offers <strong>free hosting</strong> for websites running <a href="https://pages.github.com/">GitHub Pages</a>. This seemed perfect for what I needed and no server side hassle! From GitHub Pages I was directed to <a href="https://jekyllrb.com/">Jekyll</a>. Jekyll is an amazing open source blogging tool, which among other things has inbuilt support for <a href="https://daringfireball.net/projects/markdown/">Markdown</a> making writing blog posts a breeze<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>.</p>
+<p>So you want to know how I made this site right? Well initially I was thinking of using what I know from work - C# <a href="https://dotnet.microsoft.com/apps/aspnet/mvc" class="blue-link">ASP.NET MVC</a>. But I figured it would be better if I learnt something new and all that server side setup and maintenance seemed like a pain. After a recommendation from a friend I found that GitHub offers <strong>free hosting</strong> for websites running <a class="blue-link" href="https://pages.github.com/">GitHub Pages</a>. This seemed perfect for what I needed and no server side hassle! From GitHub Pages I was directed to <a href="https://jekyllrb.com/" class="blue-link">Jekyll</a>. Jekyll is an amazing open source blogging tool, which among other things has inbuilt support for <a href="https://daringfireball.net/projects/markdown/" class="blue-link">Markdown</a> making writing blog posts a breeze<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>.</p>
 
-<p>Here’s an example of the JavaScript markdown which uses <a href="http://pygments.org/">Pygments</a>:</p>
+<p>Here’s an example of the JavaScript markdown which uses <a href="https://pypi.org/project/Pygments/" class="blue-link">Pygments</a>:</p>
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Hello World! 😊"</span><span class="p">);</span>
 <span class="p">})();</span>
 </code></pre></div></div>
 
-<p>Jekyll also has a great HTML templating through use of <a href="https://jekyllrb.com/docs/includes/">includes</a> and <a href="https://jekyllrb.com/docs/step-by-step/04-layouts/">layouts</a> which help keep your project well structured.</p>
+<p>Jekyll also has a great HTML templating through use of <a href="https://jekyllrb.com/docs/includes/" class="blue-link">includes</a> and <a href="https://jekyllrb.com/docs/step-by-step/04-layouts/" class="blue-link">layouts</a> which help keep your project well structured.</p>
 
 <h2 id="sass-and-gulp">Sass and Gulp</h2>
-<p>At work we predominantly use CSS libraries like <a href="https://getbootstrap.com/">Bootstrap</a>, but one thing I decided fairly early on was that I was going to develop all the CSS myself to improve my front-end skills. After a bit of online research I decided I was going to use the <a href="https://sass-lang.com/">Sass</a> CSS templating language. Here’s the Sass for those crazy blue links:</p>
+<p>At work we predominantly use CSS libraries like <a href="https://getbootstrap.com/" class="blue-link">Bootstrap</a>, but one thing I decided fairly early on was that I was going to develop all the CSS myself to improve my front-end skills. After a bit of online research I decided I was going to use the <a href="https://sass-lang.com/" class="blue-link">Sass</a> CSS templating language. Here’s the Sass for those crazy blue links:</p>
 <div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span><span class="nt">color--skyblue</span><span class="o">:</span> <span class="nf">#00c1c1</span><span class="o">;</span>
 <span class="err">$</span><span class="nt">color--white</span><span class="o">:</span> <span class="nf">#fff</span><span class="o">;</span>
 
@@ -61,7 +61,7 @@
     <span class="nl">transition-duration</span><span class="p">:</span> <span class="m">0.5s</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="o">%</span><span class="nt">blue-links</span> <span class="p">{</span>
+<span class="nc">.blue-link</span><span class="o">,</span> <span class="o">%</span><span class="nt">blue-link</span> <span class="p">{</span>
     <span class="nl">color</span><span class="p">:</span> <span class="err">$</span><span class="n">color--skyblue</span><span class="p">;</span>
     <span class="nl">text-decoration</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
     <span class="nl">background-image</span><span class="p">:</span> <span class="n">linear-gradient</span><span class="p">(</span>
@@ -82,7 +82,7 @@
 </code></pre></div></div>
 <p>Sass makes your CSS code simpler with things like variables <code class="highlighter-rouge">$color--skyblue</code>, placeholder selectors <code class="highlighter-rouge">%transition-duration</code> and parent selectors <code class="highlighter-rouge">&amp;:hover</code>. Essentially Sass means you don’t have to repeat yourself so often!</p>
 
-<p>While investigating Sass I was directed to <a href="https://gulpjs.com/">Gulp</a> a DevOps build tool. Gulp essentially allows you to automate command line tools for things like:</p>
+<p>While investigating Sass I was directed to <a href="https://gulpjs.com/" class="blue-link">Gulp</a> a DevOps build tool. Gulp essentially allows you to automate command line tools for things like:</p>
 
 <ul>
   <li>Compiling Sass files to CSS when they change.</li>
@@ -107,8 +107,8 @@
 <h2 id="photos">Photos</h2>
 <figure class="half-width-left"><img style="width:100%;" src="/assets/images/photos/Sunset.jpg" /></figure>
 <p class="half-width-right">
-One thing I thought I'd share on this blog is some <a href="/Photos">photos</a> I've taken on my travels. In the future I'd like to develop that area into a gallery of some kind. The photos have been compressed using 
-<a href="https://squoosh.app/">Squoosh</a> making them take up less space and load quickly (hopefully).
+One thing I thought I'd share on this blog is some <a href="/Photos" class="blue-link">photos</a> I've taken on my travels. In the future I'd like to develop that area into a gallery of some kind. The photos have been compressed using 
+<a href="https://squoosh.app/" class="blue-link">Squoosh</a> making them take up less space and load quickly (hopefully).
 </p>
 
 <h2 id="conclusion">Conclusion</h2>
