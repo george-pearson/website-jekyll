@@ -100,4 +100,4 @@ gulp.task('dev', gulp.parallel('jekyll', 'dev:watch', 'serve'));
 /**
  * Deploy to GitHub Pages.
  */
-gulp.task('deploy', gulp.series('jekyll', 'ghPages'));
+gulp.task('deploy', gulp.series('sass', 'jekyll', 'ghPages'));
