@@ -97,4 +97,4 @@ Just hit "Reload" below and you'll have your very own cloud image!
     <a id="reload" class="button">Reload</a>
 </div>
 
-The full code for this is available on my <a href="https://github.com/george-pearson" class="blue-link">Github</a>. If you want a bigger image just increase `n`. Please bear in mind I've found `n > 11` tends to give my laptop a hard time and I haven't tested this on mobile so be careful (wouldn't want your browser to crash!).
+The full code for this is available on my <a href="https://github.com/george-pearson/website/blob/master/_scripts/cloud.js" class="blue-link">Github</a>. If you want a bigger image just increase `n`. Please bear in mind I've found `n > 11` tends to give my laptop a hard time and I haven't tested this on mobile so be careful (wouldn't want your browser to crash!).
