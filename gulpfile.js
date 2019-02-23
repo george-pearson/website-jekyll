@@ -9,14 +9,14 @@ var cssnano      = require('gulp-cssnano');
 var sourcemaps   = require('gulp-sourcemaps');
 var plumber      = require('gulp-plumber');
 var ghPages      = require('gulp-gh-pages');
-var uglify       = require("gulp-uglify");
-var isprod       = false;
+var uglify       = require('gulp-uglify');
+var isProd       = false;
 
 /**
  * Deploy to gh-pages branch.
  */
 gulp.task('ghPages', function() {
-    return gulp.src("./_site/**/*")
+    return gulp.src('./_site/**/*')
     .pipe(plumber())
     .pipe(ghPages());
 });
@@ -26,8 +26,8 @@ gulp.task('ghPages', function() {
  */
 gulp.task('jekyll', function (done) {
     var options = {stdio: 'inherit'};
-    if(isprod) {
-        options.env = {JEKYLL_ENV: "production"};
+    if(isProd) {
+        options.env = {JEKYLL_ENV: 'production'};
     }
     return cp.spawn('jekyll.bat', ['build'], options).on('close', done);
 });
@@ -45,6 +45,16 @@ gulp.task('serve', function() {
     });
 });
 
+gulp.task('setEnvProd', function (done) {
+    isProd = true;
+    done();
+});
+
+gulp.task('setEnvDev', function (done) {
+    isProd = false;
+    done();
+});
+
 /**
  * Minify .js files.
  */
@@ -53,14 +63,14 @@ gulp.task("scripts", function() {
         .pipe(plumber())
         .pipe(uglify())
         .pipe(rename({extname:'.min.js'}))
-        .pipe(gulp.dest("assets/scripts/"));
+        .pipe(gulp.dest('assets/scripts/'));
 });
 
 /**
  * Compile .scss files.
  */
 gulp.task('sass', function () {
-    if(isprod){
+    if(isProd){
         return gulp.src('_scss/main.scss')
             .pipe(plumber())
             .pipe(sass())
@@ -93,14 +103,14 @@ gulp.task('watch', function () {
 /**
  * Default task, running `gulp` will trigger.
  */
-gulp.task('default', gulp.parallel(()=>{isprod=false;},'sass', 'scripts', 'jekyll', 'serve', 'watch'));
+gulp.task('default', gulp.parallel('setEnvDev', 'sass', 'scripts', 'jekyll', 'serve', 'watch'));
 
 /**
  * Default task, running `gulp prod` will trigger.
  */
-gulp.task('prod', gulp.parallel(()=>{isprod=true;},'sass', 'scripts', 'jekyll', 'serve', 'watch'));
+gulp.task('prod', gulp.parallel('setEnvProd', 'sass', 'scripts', 'jekyll', 'serve', 'watch'));
 
 /**
  * Deploy to GitHub Pages, running `gulp deploy` will trigger.
  */
-gulp.task('deploy', gulp.series(()=>{isprod=true;},'sass', 'scripts', 'jekyll', 'ghPages'));
+gulp.task('deploy', gulp.series('setEnvProd', 'sass', 'scripts', 'jekyll', 'ghPages'));
