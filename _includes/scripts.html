@@ -1,3 +1,4 @@
+{% if jekyll.environment == "production" %}
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134616286-1"></script>
 <script>
@@ -6,6 +7,7 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'UA-134616286-1');
 </script>
+{% endif %}
 
 <!-- Post Scripts -->
 {% if page.id == "/2019/02/20/diamond-square-algorithm-cloud-images" %}

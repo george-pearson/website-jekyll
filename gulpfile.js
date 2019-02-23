@@ -10,6 +10,7 @@ var sourcemaps   = require('gulp-sourcemaps');
 var plumber      = require('gulp-plumber');
 var ghPages      = require('gulp-gh-pages');
 var uglify       = require("gulp-uglify");
+var isprod       = false;
 
 /**
  * Deploy to gh-pages branch.
@@ -24,7 +25,11 @@ gulp.task('ghPages', function() {
  * Build the Jekyll site, html/md files compiled to _site.
  */
 gulp.task('jekyll', function (done) {
-    return cp.spawn('jekyll.bat', ['build'], {stdio: 'inherit'}).on('close', done);
+    var options = {stdio: 'inherit'};
+    if(isprod) {
+        options.env = {JEKYLL_ENV: "production"};
+    }
+    return cp.spawn('jekyll.bat', ['build'], options).on('close', done);
 });
 
 /**
@@ -55,19 +60,15 @@ gulp.task("scripts", function() {
  * Compile .scss files.
  */
 gulp.task('sass', function () {
-    return gulp.src('_scss/main.scss')
-        .pipe(plumber())
-        .pipe(sass())
-        .pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
-        .pipe(cssnano())
-        .pipe(rename('main.min.css'))
-        .pipe(gulp.dest('assets/css/'));
-});
-
-/**
- * Dev compile .scss files.
- */
-gulp.task('dev:sass', function () {
+    if(isprod){
+        return gulp.src('_scss/main.scss')
+            .pipe(plumber())
+            .pipe(sass())
+            .pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
+            .pipe(cssnano())
+            .pipe(rename('main.min.css'))
+            .pipe(gulp.dest('assets/css/'));
+    }
     return gulp.src('_scss/main.scss')
         .pipe(plumber())
         .pipe(sourcemaps.init())
@@ -80,6 +81,7 @@ gulp.task('dev:sass', function () {
 
 /**
  * Watch scss files & recompile, run Jekyll.
+ * Watch js files & minify, run Jekyll.
  * Watch html/md files, run Jekyll.
  */
 gulp.task('watch', function () {
@@ -89,27 +91,16 @@ gulp.task('watch', function () {
 });
 
 /**
- * Dev
- * Watch scss files & recompile, run Jekyll.
- * Watch html/md files, run Jekyll.
+ * Default task, running `gulp` will trigger.
  */
-gulp.task('dev:watch', function () {
-    gulp.watch('_scss/**/*.scss', gulp.series('dev:sass', 'jekyll'));
-    gulp.watch('_scripts/**/*.js', gulp.series('scripts', 'jekyll'));
-    gulp.watch(['index.html', '_layouts/*.html', '_includes/*.html', '_posts/**/*', 'about/*', 'photos/*'], gulp.series('jekyll'));
-});
+gulp.task('default', gulp.parallel(()=>{isprod=false;},'sass', 'scripts', 'jekyll', 'serve', 'watch'));
 
 /**
- * Default task, running just `gulp` will trigger.
+ * Default task, running `gulp prod` will trigger.
  */
-gulp.task('default', gulp.parallel('sass', 'scripts', 'jekyll', 'watch', 'serve'));
+gulp.task('prod', gulp.parallel(()=>{isprod=true;},'sass', 'scripts', 'jekyll', 'serve', 'watch'));
 
 /**
- * Dev task, running `gulp dev` will trigger.
+ * Deploy to GitHub Pages, running `gulp deploy` will trigger.
  */
-gulp.task('dev', gulp.parallel('dev:sass', 'scripts', 'jekyll', 'dev:watch', 'serve'));
-
-/**
- * Deploy to GitHub Pages.
- */
-gulp.task('deploy', gulp.series('sass', 'scripts', 'jekyll', 'ghPages'));
+gulp.task('deploy', gulp.series(()=>{isprod=true;},'sass', 'scripts', 'jekyll', 'ghPages'));
