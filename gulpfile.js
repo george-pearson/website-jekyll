@@ -10,6 +10,7 @@ var sourcemaps   = require('gulp-sourcemaps');
 var plumber      = require('gulp-plumber');
 var ghPages      = require('gulp-gh-pages');
 var uglify       = require('gulp-uglify');
+var babel        = require('gulp-babel');
 var isProd       = false;
 
 /**
@@ -61,6 +62,9 @@ gulp.task('setEnvDev', function (done) {
 gulp.task("scripts", function() {
     return gulp.src('_scripts/*.js')
         .pipe(plumber())
+        .pipe(babel({
+            presets: ['@babel/env']
+        }))
         .pipe(uglify())
         .pipe(rename({extname:'.min.js'}))
         .pipe(gulp.dest('assets/scripts/'));
