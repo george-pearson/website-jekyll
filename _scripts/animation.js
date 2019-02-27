@@ -2,7 +2,7 @@
 $(document).ready(function(){
     var svg = document.querySelector('#maboi-drawself');
     var lines = Array.from(svg.querySelectorAll('.line'));
-    var shades = Array.from(svg.querySelectorAll('path:not(.line)'));
+    var shades = Array.from(svg.querySelectorAll('.shade'));
     var paths = [...lines, ...shades];
     
     var durations = paths.map(function(path) {
