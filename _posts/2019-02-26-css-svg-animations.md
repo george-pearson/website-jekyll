@@ -5,7 +5,7 @@ subtitle: "A look at CSS SVG animations"
 date:   2019-02-26 11:00:00 +0000
 ---
 
-<svg id="maboi-drawself" xmlns="http://www.w3.org/2000/svg" width="400" height="400">
+<svg id="maboi-drawself" style="justify-self: center;" xmlns="http://www.w3.org/2000/svg" width="400" height="400">
 	<path id="hair" class="shade"
 	style="fill:#312929;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4"
 	d="M 49.002,255.376 C 44.861363,240.56032 42.726096,221.26752 39.96492,204.64867 33.569815,156.11234 34.53359,101.68969 66.273855,61.458738 77.379429,46.163821 94.193466,36.181281 112.35388,31.794302 c 4.10201,-0.682841 16.44015,-9.196305 10.37051,-0.208306 -4.33798,7.099864 -13.6935,34.169106 1.47761,20.591004 29.16454,-16.991298 61.45366,-29.523756 94.86517,-34.580937 13.57196,-0.812716 27.01177,1.747359 40.49383,2.900937 -8.25404,7.940706 -19.61107,13.359695 -25.92,22.72 38.0844,2.037556 72.17,23.177287 99.06212,48.939375 -6.85106,2.375814 -27.50231,-0.526068 -39.33625,3.16375 -17.32356,1.423837 -32.60892,10.383805 -46.28687,20.536875 -43.35668,30.73622 -94.29898,52.04884 -147.464,56.85 -6.661519,6.47001 -0.112366,27.96215 -5.256875,39.6668 -4.24141,22.26047 -23.144186,39.27185 -45.038125,43.6422 z"
@@ -34,10 +34,6 @@ date:   2019-02-26 11:00:00 +0000
 	style="fill:#8ccef7;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4"
 	d="m 324.84,259.536 c -28.12357,-4.85494 -48.64871,-35.29858 -41.37813,-63.19023 4.40851,-19.56774 20.60949,-41.5661 42.37313,-41.09977 26.71271,4.89712 44.72392,32.1904 41.01777,58.62276 -2.05931,18.39389 -11.45918,40.06186 -30.60964,45.58599 -3.77715,0.49952 -7.61827,0.49618 -11.40313,0.0813 z"
 	/>
-	<path id="backHairShade" class="shade"
-	style="fill:#181818;fill-opacity:1;fill-rule:nonzero;stroke:#181818;stroke-width:4.15999985;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-	d="m 114.601,58.897 c 0.1567,5.96685 -1.64254,12.704661 4.48,16.32 13.93454,-19.529615 35.4829,-31.039227 54.72,-44.48 -14.4055,5.049599 -28.90882,9.885815 -41.74741,18.353305 -5.81753,3.268898 -11.63506,6.537797 -17.45259,9.806695 z"
-	/>
 	<path id="leftEyeSmallTint" class="shade"
 	style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0.31999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
 	d="m 202.92,231.056 c -4.05314,24.23374 28.83188,-0.96837 2.155,-1.325 z"
@@ -54,21 +50,25 @@ date:   2019-02-26 11:00:00 +0000
 	style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0.63999999;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
 	d="m 308.52,168.977 c -23.16535,13.48053 16.22355,36.19796 16.84,10.08 -0.55392,-8.7522 -8.80383,-13.74638 -16.84,-10.08 z"
 	/>
-	<path id="frontHairShade" class="shade"
-	style="fill:#181818;fill-opacity:1;fill-rule:nonzero;stroke:#181818;stroke-width:3.83999991;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-	d="m 225.64,61.137 c 39.09517,-6.126087 72.62355,18.123963 106.88,32.32 -25.82848,-27.354253 -61.06978,-50.535279 -100.16,-48 -4.42206,3.958809 -6.50128,9.86066 -6.72,15.68 z"
+	<path id="jawShade" class="shade"
+	style="fill:#9a8179;fill-opacity:1;fill-rule:nonzero;stroke:#9a8179;stroke-width:3.83999991;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+	d="m 66.282,251.216 c -15.335601,4.76402 -33.864289,9.2884 -41.679968,24.89909 -5.630066,12.96044 1.357882,27.41901 8.668633,38.21253 10.412691,13.62351 25.841947,25.66249 43.568179,26.32365 13.918188,-0.0162 27.042376,-5.74363 39.055236,-12.28785 38.90017,22.65515 79.19694,46.85331 124.90796,51.60811 8.94433,0.89592 17.97474,0.9776 26.9281,0.15697 -10.80002,-5.52231 -23.5025,-6.24815 -34.83529,-10.63905 C 180.11467,354.54434 127.64144,330.07073 91.357665,287.67554 81.815433,276.40559 73.548011,264.05902 66.282,251.216 Z"
 	/>
 	<path id="backheadShade" class="shade"
 	style="fill:#171717;fill-opacity:1;fill-rule:nonzero;stroke:#181818;stroke-width:3.83999991;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
 	d="M 66.602,247.696 C 52.86568,196.53976 39.49361,141.80794 55.339838,89.465764 56.328552,83.465126 66.873595,59.107602 59.14075,75.457859 40.733199,108.14043 32.74117,146.07316 36.302,183.42158 c 1.652806,24.26835 6.008205,48.26766 11.42,71.95442 6.565374,-1.56175 14.10751,-2.3256 18.88,-7.68 z"
 	/>
+	<path id="backHairShade" class="shade"
+	style="fill:#181818;fill-opacity:1;fill-rule:nonzero;stroke:#181818;stroke-width:4.15999985;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+	d="m 114.601,58.897 c 0.1567,5.96685 -1.64254,12.704661 4.48,16.32 13.93454,-19.529615 35.4829,-31.039227 54.72,-44.48 -14.4055,5.049599 -28.90882,9.885815 -41.74741,18.353305 -5.81753,3.268898 -11.63506,6.537797 -17.45259,9.806695 z"
+	/>
+	<path id="frontHairShade" class="shade"
+	style="fill:#181818;fill-opacity:1;fill-rule:nonzero;stroke:#181818;stroke-width:3.83999991;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+	d="m 225.64,61.137 c 39.09517,-6.126087 72.62355,18.123963 106.88,32.32 -25.82848,-27.354253 -61.06978,-50.535279 -100.16,-48 -4.42206,3.958809 -6.50128,9.86066 -6.72,15.68 z"
+	/>
 	<path id="foreheadShade" class="shade"
 	style="fill:#9a8179;fill-opacity:1;fill-rule:nonzero;stroke:#9a8179;stroke-width:3.83999991;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
 	d="m 96.361,173.137 c 60.27617,3.32632 120.76577,-16.23383 168.639,-52.8 -3.07308,-8.8671 -5.96541,-17.69153 -13.99469,-5.41523 -43.38529,35.78347 -99.0328,54.17798 -154.64431,58.21523 z"
-	/>
-	<path id="jawShade" class="shade"
-	style="fill:#9a8179;fill-opacity:1;fill-rule:nonzero;stroke:#9a8179;stroke-width:3.83999991;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-	d="m 66.282,251.216 c -15.335601,4.76402 -33.864289,9.2884 -41.679968,24.89909 -5.630066,12.96044 1.357882,27.41901 8.668633,38.21253 10.412691,13.62351 25.841947,25.66249 43.568179,26.32365 13.918188,-0.0162 27.042376,-5.74363 39.055236,-12.28785 38.90017,22.65515 79.19694,46.85331 124.90796,51.60811 8.94433,0.89592 17.97474,0.9776 26.9281,0.15697 -10.80002,-5.52231 -23.5025,-6.24815 -34.83529,-10.63905 C 180.11467,354.54434 127.64144,330.07073 91.357665,287.67554 81.815433,276.40559 73.548011,264.05902 66.282,251.216 Z"
 	/>
 	<path id="lines1" class="line"
 	style="fill:none;stroke:#000000;stroke-width:3.83999991;"
