@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "CSS SVG Animations"
-subtitle: "A look at CSS SVG animations"
+title:  "SVG Line Animations"
+subtitle: "A look into how to create SVG line animations using CSS transitions and a bit of JavaScript."
 date:   2019-02-26 11:00:00 +0000
 ---
 
@@ -164,3 +164,4 @@ date:   2019-02-26 11:00:00 +0000
 		justify-self: center;
 	}
 </style>
+Hey that animation was pretty cool!
