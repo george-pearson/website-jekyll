@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "SVG Line Animations"
-subtitle: "A look into how to create SVG line animations using CSS transitions and a bit of JavaScript."
+title:  "SVG Path Animations"
+subtitle: "A look into how to create SVG path animations using CSS transitions and a bit of JavaScript."
 date:   2019-02-26 11:00:00 +0000
 ---
 
@@ -156,7 +156,7 @@ date:   2019-02-26 11:00:00 +0000
 <style>
 	.maboi-drawself {
 		max-width: 400px;
-    	max-height: 400px;
+		max-height: 400px;
 		width: 100%;
 		height: 100%;
 	}
@@ -168,7 +168,7 @@ date:   2019-02-26 11:00:00 +0000
 Hey that animation was pretty cool, right? Just click on him again to re-run it. Today's post is on how to create awesome SVG line animations like the one above.
 
 ## SVG Paths
-In general the SVG path format can seem rather cryptic:
+The SVG path format can seem rather cryptic:
 ```xml
 	<svg id="coffee" class="coffee" xmlns="http://www.w3.org/2000/svg"
 		width="250"
@@ -182,7 +182,7 @@ In general the SVG path format can seem rather cryptic:
 In reality nobody sane edits path elements by hand, and the best way to change them is with the use of an SVG editor like <a class="blue-link" href="https://inkscape.org/">Inkscape</a>. I create my SVGs in Inkscape then cut out the "bloat elements" Inkscape adds that arn't needed.
 
 ## Single Path Animations
-We\'ll start with a simple single path SVG:
+We'll start with a simple single path SVG:
 
 <div class="half-width-left">
 	<svg id="coffee" class="coffee" xmlns="http://www.w3.org/2000/svg"
@@ -197,7 +197,7 @@ We\'ll start with a simple single path SVG:
 <style>
 	.coffee {
 		max-width: 250px;
-    	max-height: 375px;
+		max-height: 375px;
 		width: 100%;
 		height: 100%;
 	}
@@ -215,15 +215,14 @@ We\'ll start with a simple single path SVG:
 <style>
 	.coffee-dashed {
 		max-width: 250px;
-    	max-height: 375px;
+		max-height: 375px;
 		width: 100%;
 		height: 100%;
 	}
 	.coffee-dashed path {
 		stroke-dasharray: 20 20;
 		stroke-dashoffset: 1547;
-		animation: coffee-dash 20s linear;
-		animation-iteration-count: infinite;
+		animation: coffee-dash 20s linear infinite;
 		animation-play-state: paused;
 	}
 	@keyframes coffee-dash {
@@ -232,7 +231,25 @@ We\'ll start with a simple single path SVG:
 		}
 	}
 </style>
-<div class="half-width-left">
+
+```css
+	.coffee-dashed path {
+		stroke-dasharray: 20 20;
+		stroke-dashoffset: 1547;
+		animation: coffee-dash 20s linear infinite;
+	}
+	@keyframes coffee-dash {
+		100% {
+			stroke-dashoffset: 0;
+		}
+	}
+```
+
+We can add dashes to an SVG path with the use of the `stroke-dasharray` property, the first number gives the length of the dashes and the second gives the length of the gaps. The `stroke-dashoffset` property specifies where the dasharray starts. By changing the `stroke-dashoffset` from the path length to 0 using a `@keyframes` animation we can move the dashes about (try clicking on the dashed mug). 
+
+Now imagine we made the dashes and gaps the length of the path, such that we only ever see one dash. To do this increase the  `stroke-dasharray` values to the path length and we've got a coffee mug that draws itself:
+
+<div style="justify-self: center;">
 	<svg id="coffee-drawself" class="coffee-drawself" xmlns="http://www.w3.org/2000/svg"
 		width="250"
 		height="375"
@@ -252,8 +269,7 @@ We\'ll start with a simple single path SVG:
 	.coffee-drawself path {
 		stroke-dasharray: 1547 1547;
 		stroke-dashoffset: 1547;
-		animation: draw 15s linear;
-		animation-iteration-count: infinite;
+		animation: draw 15s linear infinite;
 	}
 	@keyframes draw {
 		0% {
@@ -264,3 +280,19 @@ We\'ll start with a simple single path SVG:
 		}
 	}
 </style>
+
+```css
+	.coffee-drawself path {
+		stroke-dasharray: 1547 1547;
+		stroke-dashoffset: 1547;
+		animation: draw 15s linear infinite;
+	}
+	@keyframes draw {
+		0% {
+			stroke-dashoffset: 1547;
+  		}
+		75%, 100% {
+			stroke-dashoffset: 0; /* Pause for 75%-100% of animation */
+		}
+	}
+```
