@@ -4,6 +4,6 @@ description: Development and scientific musings
 url: "https://georgepearson.co.uk"
 exclude: ["node_modules", "gulpfile.js", "package.json"]
 plugins: [jekyll-paginate]
-paginate: 2
+paginate: 5
 markdown: kramdown
 highlighter: rouge

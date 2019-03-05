@@ -178,7 +178,7 @@ The SVG path format can seem rather cryptic:
 </svg>
 ```
 
-In reality nobody sane edits path elements by hand, and the best way to change them is with the use of an SVG editor like <a class="blue-link" href="https://inkscape.org/">Inkscape</a>. I create my SVGs in Inkscape then cut out the "bloat elements" Inkscape adds that arn't needed.
+In reality nobody sane edits path elements by hand, and the best way to change them is with the use of an SVG editor like <a class="blue-link" href="https://inkscape.org/">Inkscape</a>. I create my SVGs in Inkscape then cut out the "bloat elements" Inkscape adds that aren't needed.
 
 ## Single Path Animations
 We'll start with a simple single path SVG:
@@ -240,7 +240,7 @@ We'll start with a simple single path SVG:
 
 We can add dashes to an SVG path with the use of the `stroke-dasharray` property, the first number gives the length of the dashes and the second gives the length of the gaps. The `stroke-dashoffset` property specifies where the dasharray starts. By changing the `stroke-dashoffset` from the path length to 0 using a `@keyframes` animation we can move the dashes about (try clicking on the dashed mug). 
 
-Now imagine we made the dashes and gaps the length of the path, such that we only ever see one dash. To do this increase the  `stroke-dasharray` values to the path length and we've got a coffee mug that draws itself:
+Now imagine we made the dashes and gaps the length of the path, such that we only ever see one dash. To do this we increase the  `stroke-dasharray` values to the path length and we've got a coffee mug that draws itself:
 
 <div style="justify-self: center;">
     <svg id="coffee-drawself" class="coffee-drawself" xmlns="http://www.w3.org/2000/svg" width="250" height="375" viewBox="0 0 250 375">
@@ -287,7 +287,7 @@ Now imagine we made the dashes and gaps the length of the path, such that we onl
 }
 ```
 
-But wait, how do you know the path length? It turns out there is a handy javascript method `getTotalLength` that does this for you.
+But wait, how do you know the path length? It turns out there is a handy JavaScript method `getTotalLength` that does this for you:
 
 ```javascript
 var path = document.querySelector(".coffee-drawself path");
@@ -296,7 +296,7 @@ var length = path.getTotalLength(); // 1546.7664794921875
 
 ## Multi-path Animations
 
-To do multi-path animations we can reproduce what we did for single line animations in javascript, then repeat that over all the paths in the SVG. Try clicking on this cupcake:
+To do multi-path animations we can reproduce what we did for single line animations in JavaScript, then repeat that over all the paths in the SVG. Try clicking on this cupcake:
 
 <div style="justify-self: center;">
     <svg id="cupcake-drawself" class="cupcake-drawself" xmlns="http://www.w3.org/2000/svg" width="250" height="250" viewBox="0 0 250 250">
@@ -368,7 +368,7 @@ function runCupcakeAnimations(){
 cupcake.addEventListener("click", runCupcakeAnimations);
 ```
 
-Finally if you want to make things really snazzy you can add fade effects (like the logo animation) by varying `fill-opacity` - I'll leave you to work that one out! As allways the full code for all these animations is on my <a href="https://github.com/george-pearson" class="blue-link">Github</a>.
+Finally if you want to make things really snazzy you can add fade effects (like the logo animation) by varying `fill-opacity` - I'll leave you to work that one out! As always the full code for all these animations is on my <a href="https://github.com/george-pearson" class="blue-link">GitHub</a>.
 
 ## Further reading
 * <a class="blue-link" href="https://jakearchibald.com/2013/animated-line-drawing-svg/">Jake Archibald's blog post on this in 2013!</a>

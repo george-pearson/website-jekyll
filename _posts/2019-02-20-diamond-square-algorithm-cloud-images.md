@@ -1,11 +1,11 @@
 ---
 layout: post
 title:  "Diamond-square Algorithm Cloud Images"
-subtitle: "I show off some javascript code to make cool cloud images using the Diamond-square algorithm."
+subtitle: "I show off some JavaScript code to make cool cloud images using the Diamond-square algorithm."
 date:   2019-02-20 11:00:00 +0000
 ---
 
-The <a href="https://en.wikipedia.org/wiki/Diamond-square_algorithm" class="blue-link">Diamond-square algorithm (DSA)</a> is a popular method used to generate realistic <a href="https://en.wikipedia.org/wiki/Heightmap" class="blue-link">heightmaps</a> which resemble clouds, terrain and/or plasma. The javascript code below can be used to generate square cloud images of size <code class="highlighter-rouge">N = 2<sup>n</sup> + 1</code>. The images make great unique backgrounds (I have one on my phone!) and look rather pretty in my opinion.
+The <a href="https://en.wikipedia.org/wiki/Diamond-square_algorithm" class="blue-link">Diamond-square algorithm (DSA)</a> is a popular method used to generate realistic <a href="https://en.wikipedia.org/wiki/Heightmap" class="blue-link">heightmaps</a> which resemble clouds, terrain and/or plasma. The JavaScript code below can be used to generate square cloud images of size <code class="highlighter-rouge">N = 2<sup>n</sup> + 1</code>. The images make great unique backgrounds (I have one on my phone!) and look rather pretty in my opinion.
 
 ```javascript
 var n = 9;
@@ -97,4 +97,4 @@ Just hit "Reload" below and you'll have your very own cloud image!
     <a id="reload" class="button">Reload</a>
 </div>
 
-The full code for this is available on my <a href="https://github.com/george-pearson" class="blue-link">Github</a>. If you want a bigger image just increase `n`. Please bear in mind I've found `n > 11` tends to give my laptop a hard time and I haven't tested this on mobile so be careful (wouldn't want your browser to crash!).
+The full code for this is available on my <a href="https://github.com/george-pearson" class="blue-link">GitHub</a>. If you want a bigger image just increase `n`. Please bear in mind I've found `n > 11` tends to give my laptop a hard time and I haven't tested this on mobile so be careful (wouldn't want your browser to crash!).
