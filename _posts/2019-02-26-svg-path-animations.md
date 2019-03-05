@@ -368,4 +368,8 @@ function runCupcakeAnimations(){
 cupcake.addEventListener("click", runCupcakeAnimations);
 ```
 
-Finally if you want to make things really snazzy you can add fade effects (like the logo animation) by varying `fill-opacity`. As allways the code for all these animations is on my <a href="https://github.com/george-pearson" class="blue-link">Github</a>.
+Finally if you want to make things really snazzy you can add fade effects (like the logo animation) by varying `fill-opacity` - I'll leave you to work that one out! As allways the full code for all these animations is on my <a href="https://github.com/george-pearson" class="blue-link">Github</a>.
+
+## Further reading
+* <a class="blue-link" href="https://jakearchibald.com/2013/animated-line-drawing-svg/">Jake Archibald's blog post on this in 2013!</a>
+* <a class="blue-link" href="https://css-tricks.com/svg-line-animation-works/">CSS-Tricks on SVG line animation</a>
