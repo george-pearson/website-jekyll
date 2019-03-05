@@ -35,7 +35,9 @@ $(document).ready(function(){
     }
     maboi.addEventListener("click", runMaboiAnimations);
     runMaboiAnimations();
+
     /*----------Coffee----------*/
+
     function toggleAnimationPlayState(element){
         if (element.style.animationPlayState === 'running') {
             element.style.animationPlayState = 'paused';
@@ -50,4 +52,36 @@ $(document).ready(function(){
     var coffeeDrawSelf = document.querySelector(".coffee-drawself");
     var coffeeDrawSelfPath = document.querySelector(".coffee-drawself path");
     coffeeDrawSelf.addEventListener("click", () => toggleAnimationPlayState(coffeeDrawSelfPath));
+
+    /*----------Cupcake----------*/
+    var cupcake = document.querySelector(".cupcake-drawself");
+    var cupcakePaths = Array.from(cupcake.querySelectorAll("path"));
+    var cupcakeAnimations = cupcakePaths.map(function(path){
+        var pathLength = path.getTotalLength();
+        var duration = Math.pow(pathLength, 0.5) * 0.03;
+        return {path, pathLength, duration};
+    });
+
+    function runCupcakeAnimations(){
+        // Initial conditions
+        cupcakeAnimations.forEach(function(animation){
+            animation.path.style.transition = "none"; // Clear previous transition => fast removal
+            animation.path.style.strokeDasharray = `${animation.pathLength} ${animation.pathLength}`;
+            animation.path.style.strokeDashoffset = animation.pathLength;
+            animation.path.getBoundingClientRect(); // Trigger reflow of each path
+        });
+
+        // Triggering a reflow on first path so we animate from here
+        cupcakeAnimations[0].path.getBoundingClientRect();
+
+        // Run line animations
+        var begin = 0;
+        cupcakeAnimations.forEach(function(animation) {
+            animation.path.style.transition = `stroke-dashoffset ${animation.duration}s ${begin}s ease-in-out`;
+            animation.path.style.strokeDashoffset = "0";
+            begin += animation.duration + 0.1; // Slight 0.1s delay for drawing effect
+        });
+    }
+
+    cupcake.addEventListener("click", runCupcakeAnimations);
 });
