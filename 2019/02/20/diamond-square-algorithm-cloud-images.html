@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width", initial-scale=1.0>
-    <meta name="description" content="George Pearsons' Blog | I show off some javascript code to make cool cloud images using the Diamond-square algorithm.">
+    <meta name="description" content="George Pearsons' Blog | I show off some JavaScript code to make cool cloud images using the Diamond-square algorithm.">
     <title>Diamond-square Algorithm Cloud Images | George Pearson</title>
     <link rel="stylesheet" href="/assets/css/main.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
@@ -23,6 +23,7 @@ gtag('config', 'UA-134616286-1');
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="/assets/scripts/cloud.min.js"></script>
+
 
 </head>
 
@@ -44,7 +45,7 @@ gtag('config', 'UA-134616286-1');
         <p class="post-date">February 20, 2019</p>
         <a class="blue-link" data-disqus-identifier="/2019/02/20/diamond-square-algorithm-cloud-images" href="https://georgepearson.co.uk/2019/02/20/diamond-square-algorithm-cloud-images.html#disqus_thread">Comments</a>
     </div>
-    <p>The <a href="https://en.wikipedia.org/wiki/Diamond-square_algorithm" class="blue-link">Diamond-square algorithm (DSA)</a> is a popular method used to generate realistic <a href="https://en.wikipedia.org/wiki/Heightmap" class="blue-link">heightmaps</a> which resemble clouds, terrain and/or plasma. The javascript code below can be used to generate square cloud images of size <code class="highlighter-rouge">N = 2<sup>n</sup> + 1</code>. The images make great unique backgrounds (I have one on my phone!) and look rather pretty in my opinion.</p>
+    <p>The <a href="https://en.wikipedia.org/wiki/Diamond-square_algorithm" class="blue-link">Diamond-square algorithm (DSA)</a> is a popular method used to generate realistic <a href="https://en.wikipedia.org/wiki/Heightmap" class="blue-link">heightmaps</a> which resemble clouds, terrain and/or plasma. The JavaScript code below can be used to generate square cloud images of size <code class="highlighter-rouge">N = 2<sup>n</sup> + 1</code>. The images make great unique backgrounds (I have one on my phone!) and look rather pretty in my opinion.</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="mi">9</span><span class="p">;</span>
 <span class="kd">var</span> <span class="nx">N</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
@@ -137,7 +138,7 @@ gtag('config', 'UA-134616286-1');
     <a id="reload" class="button">Reload</a>
 </div>
 
-<p>The full code for this is available on my <a href="https://github.com/george-pearson/website/blob/master/_scripts/cloud.js" class="blue-link">Github</a>. If you want a bigger image just increase <code class="highlighter-rouge">n</code>. Please bear in mind I’ve found <code class="highlighter-rouge">n &gt; 11</code> tends to give my laptop a hard time and I haven’t tested this on mobile so be careful (wouldn’t want your browser to crash!).</p>
+<p>The full code for this is available on my <a href="https://github.com/george-pearson" class="blue-link">GitHub</a>. If you want a bigger image just increase <code class="highlighter-rouge">n</code>. Please bear in mind I’ve found <code class="highlighter-rouge">n &gt; 11</code> tends to give my laptop a hard time and I haven’t tested this on mobile so be careful (wouldn’t want your browser to crash!).</p>
 
     <div id="disqus_thread"></div>
 </section>
