@@ -368,7 +368,90 @@ function runCupcakeAnimations(){
 cupcake.addEventListener("click", runCupcakeAnimations);
 ```
 
-Finally if you want to make things really snazzy you can add fade effects (like the logo animation) by varying `fill-opacity` - I'll leave you to work that one out! As always the full code for all these animations is on my <a href="https://github.com/george-pearson" class="blue-link">GitHub</a>.
+Finally if you want to make things really snazzy you can add fade effects by varying `fill-opacity` and adding path class names to differentiate between lines and shade:
+
+<div style="justify-self: center;">
+    <svg id="cupcake-drawself-fade" class="cupcake-drawself-fade" xmlns="http://www.w3.org/2000/svg" width="250" height="250" viewBox="0 0 250 250">
+        <path class="shade" style="fill:#f7e6c4;fill-opacity:1;"
+            d="M 39.062991,231.37874 18.305927,142.30586 c -0.2475,-1.91925 1.253437,-5.62831 6.135625,-5.52562 l 196.614558,-0.3475 c 9.52819,-0.36875 11.33825,3.89356 10.48475,9.75393 l -20.02625,83.42032 c -1.3895,7.466 -5.50068,11.43275 -12.40237,11.81175 H 52.055931 c -10.71863,0.455 -11.05069,-4.5555 -12.99294,-10.03994 z"
+        />
+        <path class="shade" style="fill:#ee65a4;fill-opacity:1;"
+        d="M 24.888864,136.58936 C 22.165239,124.8283 24.815734,113.31155 39.358301,102.3353 32.218181,84.05105 25.946861,65.91155 51.169991,53.02118 68.707801,31.32399 83.147491,6.2081747 122.63118,8.7271127 c 7.44662,0.431875 3.40325,7.2600623 3.40325,7.2600623 -8.29732,11.464005 -5.74994,21.503685 10.28462,29.043185 7.95788,3.72542 76.21159,9.48379 71.06144,57.00963 8.72581,3.0545 15.37144,9.85343 12.40237,33.95881"
+        />
+        <path class="line" style="fill:none;stroke:#000000;stroke-width:6.25"
+        d="M 24.888864,136.58936 C 22.165239,124.8283 24.815734,113.31155 39.358301,102.3353 32.218181,84.05105 25.946861,65.91155 51.169991,53.02118 68.707801,31.32399 83.147491,6.2081747 122.63118,8.7271127 c 7.44662,0.431875 3.40325,7.2600623 3.40325,7.2600623 -8.29732,11.464005 -5.74994,21.503685 10.28462,29.043185 7.95788,3.72542 76.21159,9.48379 71.06144,57.00963 8.72581,3.0545 15.37144,9.85343 12.40237,33.95881"
+        />
+        <path class="line" style="fill:none;stroke:#000000;stroke-width:6.25"
+            d="M 39.062991,231.37874 18.305927,142.30586 c -0.2475,-1.91925 1.253437,-5.62831 6.135625,-5.52562 l 196.614558,-0.3475 c 9.52819,-0.36875 11.33825,3.89356 10.48475,9.75393 l -20.02625,83.42032 c -1.3895,7.466 -5.50068,11.43275 -12.40237,11.81175 H 52.055931 c -10.71863,0.455 -11.05069,-4.5555 -12.99294,-10.03994 z"
+        />
+        <path class="line" style="fill:none;stroke:#000000;stroke-width:6.25"
+            d="M 51.169991,53.02118 C 97.879551,88.79786 151.54143,94.44186 207.38049,102.03999"
+        />
+        <path class="line" style="fill:none;stroke:#000000;stroke-width:6.25"
+            d="M 81.880611,136.58936 C 67.256301,126.97205 52.463551,118.02849 39.358301,102.3353"
+        />
+        <path class="line" style="fill:none;stroke:#000000;stroke-width:6.25"
+            d="M 68.592361,241.12342 57.666491,135.9988"
+        />
+        <path class="line" style="fill:none;stroke:#000000;stroke-width:6.25"
+            d="M 105.79943,241.12342 101.96055,136.58936"
+        />
+        <path class="line" style="fill:none;stroke:#000000;stroke-width:6.25"
+            d="m 143.8923,241.41874 3.54356,-104.53407"
+        />
+        <path class="line" style="fill:none;stroke:#000000;stroke-width:6.25"
+            d="M 180.50874,241.12342 192.91111,136.58936"
+        />
+    </svg>
+</div>
+<style>
+    .cupcake-drawself {
+        max-width: 250px;
+        max-height: 250px;
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+```javascript
+var cupcakeFade = document.querySelector(".cupcake-drawself-fade");
+var cupcakeLines = Array.from(cupcakeFade.querySelectorAll(".line"));
+var cupcakeShades = Array.from(cupcakeFade.querySelectorAll(".shade"));
+var cupcakeFadePaths = [...cupcakeLines, ...cupcakeShades]; // Run shades last.
+
+var cupcakeFadeAnimations = cupcakeFadePaths.map(function(path){
+    var pathLength = path.getTotalLength();
+    var duration = Math.pow(pathLength, 0.5) * 0.03;
+    return {path, pathLength, duration};
+});
+
+function runCupcakeFadeAnimations(){
+    // Initial conditions
+    cupcakeFadeAnimations.forEach(function(animation){
+        animation.path.style.transition = "none"; // Clear previous transition => fast removal
+        animation.path.style.strokeDasharray = `${animation.pathLength} ${animation.pathLength}`;
+        animation.path.style.strokeDashoffset = animation.pathLength;
+        animation.path.style.fillOpacity = "0";
+        animation.path.getBoundingClientRect(); // Trigger reflow of each path
+    });
+
+    // Triggering a reflow on first path so we animate from here
+    cupcakeFadeAnimations[0].path.getBoundingClientRect();
+
+    // Run line animations
+    var begin = 0;
+    cupcakeFadeAnimations.forEach(function(animation) {
+        animation.path.style.transition = `stroke-dashoffset ${animation.duration}s ${begin}s ease-in-out, fill-opacity ${animation.duration}s ${begin}s ease-in-out`;
+        animation.path.style.strokeDashoffset = "0";
+        animation.path.style.fillOpacity = "1.0";
+        begin += animation.duration + 0.1; // Slight 0.1s delay for drawing effect
+    });
+}
+
+cupcakeFade.addEventListener("click", runCupcakeFadeAnimations);
+```
+
+As always the full code for all these animations is on my <a href="https://github.com/george-pearson" class="blue-link">GitHub</a>.
 
 ## Further reading
 * <a class="blue-link" href="https://jakearchibald.com/2013/animated-line-drawing-svg/">Jake Archibald's blog post on this in 2013!</a>
