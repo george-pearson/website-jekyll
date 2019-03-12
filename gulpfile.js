@@ -60,12 +60,21 @@ gulp.task('setEnvDev', function (done) {
  * Minify .js files.
  */
 gulp.task("scripts", function() {
+    if(isProd){
+        return gulp.src('_scripts/*.js')
+            .pipe(plumber())
+            .pipe(babel({
+                presets: ['@babel/env']
+            }))
+            .pipe(uglify())
+            .pipe(rename({extname:'.min.js'}))
+            .pipe(gulp.dest('assets/scripts/'));
+    }
     return gulp.src('_scripts/*.js')
         .pipe(plumber())
         .pipe(babel({
             presets: ['@babel/env']
         }))
-        .pipe(uglify())
         .pipe(rename({extname:'.min.js'}))
         .pipe(gulp.dest('assets/scripts/'));
 });
