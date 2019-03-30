@@ -3,11 +3,7 @@ $(document).ready(function(){
   var ALIVE = 1;
   var DEAD = 0;
   var N = 250;
-  var canvas = document.querySelector("#myCanvas");
-  canvas.width = N;
-  canvas.height = N;
-  var ctx = canvas.getContext("2d");
-  var arr = create2Darray(N, N);
+  var arr = create2Darray(N, N, DEAD);
   initialise_cross(arr);
   
   print_to_canvas(arr);
@@ -24,12 +20,12 @@ $(document).ready(function(){
       }
   });
   $("#acorn").click(function(){
-    arr = create2Darray(arr.length,arr[0].length);
+    arr = create2Darray(arr.length,arr[0].length, DEAD);
     initialise_acorn(arr);
     print_to_canvas(arr);
   });
   $("#cross").click(function(){
-    arr = create2Darray(arr.length,arr[0].length);
+    arr = create2Darray(arr.length,arr[0].length, DEAD);
     initialise_cross(arr);
     print_to_canvas(arr);
   });
@@ -49,7 +45,7 @@ $(document).ready(function(){
     for (var nn = 0; nn < 6; nn++){
       var dx = acorn[nn][0];
       var dy = acorn[nn][1];
-      arr[pbcx(x + dx)][pbcy(y + dy)] = ALIVE;
+      arr[x + dx][y + dy] = ALIVE;
     }
   }
 
@@ -75,7 +71,7 @@ $(document).ready(function(){
 
   //Iterate next state of arr:
   function iterate(){
-    var myNewArray = create2Darray(arr.length,arr[0].length);
+    var myNewArray = create2Darray(arr.length,arr[0].length, DEAD);
     for(var x=0; x < arr.length; x++){
       for(var y=0; y < arr[0].length; y++){
         if(arr[x][y] === ALIVE){
@@ -102,6 +98,11 @@ $(document).ready(function(){
 
   //Print array to screen:
   function print_to_canvas(arr){
+    var canvas = document.querySelector("#myCanvas");
+    canvas.width = arr.length;
+    canvas.height = arr[0].length;
+    var ctx = canvas.getContext("2d");
+
     var myImageData = ctx.getImageData(0,0,arr.length, arr[0].length);
     for(var x=0; x < arr.length; x++){
       for(var y=0; y < arr[0].length; y++){
@@ -148,15 +149,15 @@ $(document).ready(function(){
     return iz;
   }
 
-  //Creates a 2D array, initialised to DEAD:
-  function create2Darray(w,h){
+  //Creates a 2D array, initialised to value:
+  function create2Darray(w,h, value){
     var arr = []
     for(var x=0; x < w; x++){
       arr[x] = [];
     }
     for(var x=0; x < w; x++){
       for(var y=0; y<h; y++){
-        arr[x][y] = 0;
+        arr[x][y] = value;
       }
     }
     return arr;
