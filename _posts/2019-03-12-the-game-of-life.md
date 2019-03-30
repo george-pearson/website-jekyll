@@ -16,10 +16,12 @@ In Conway's Game of Life, the grid is a 2d array of square cells each with two s
 
 Here's some javascript code simulating the Game of Life:
 
-<canvas id="myCanvas" style="display: none;"></canvas>
+<canvas id="myCanvas"></canvas>
 <div id="divImg" style="overflow-x: scroll;"></div>
 <div style="margin-top:1em;">
     <input id="color1" type="color" value="#00ff00" class="form-control"/>
     <input id="color2" type="color" value="#000000" class="form-control"/>
     <a id="reload" class="button">Reload</a>
+    <a id="start" class="button">Start</a>
+    <a id="stop" class="button">Stop</a>
 </div>
