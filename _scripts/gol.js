@@ -11,37 +11,34 @@ $(document).ready(function(){
   initialise_cross(arr);
   
   print_to_canvas(arr);
-	
+  
 	//Buttons:
-	var intervalID;
-	$("#start").click(function(){
-		intervalID = setInterval(rungame, 20);
-		//update 50 times a second.
-	});
-	$("#stop").click(function(){
-		clearInterval(intervalID);
-	});
-	$("#reload").click(function(){
-    arr = create2Darray(arr.length,arr[0].length);
-    initialise_cross(arr);
-		print_to_canvas(arr);
-	});
+  var requestId;
+  $("#start-stop").click(function start() {
+      if (!requestId) {
+        requestId = window.requestAnimationFrame(gameLoop);
+      }
+      else {
+        window.cancelAnimationFrame(requestId);
+        requestId = undefined;
+      }
+  });
 	$("#acorn").click(function(){
 		arr = create2Darray(arr.length,arr[0].length);
-		initialise_acorn();
+		initialise_acorn(arr);
 		print_to_canvas(arr);
 	});
 	$("#cross").click(function(){
 		arr = create2Darray(arr.length,arr[0].length);
-		initialise_cross();
+		initialise_cross(arr);
 		print_to_canvas(arr);
 	});
-	
-	//Run game:
-	function rungame(){
-		arr = iterate();
+  
+  function gameLoop() {
+    arr = iterate();
 		print_to_canvas(arr);
-	}
+    requestId = window.requestAnimationFrame(gameLoop);
+  }
 	
 	//Initialise acorn on arr:
 	function initialise_acorn(arr){

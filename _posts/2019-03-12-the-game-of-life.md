@@ -21,7 +21,7 @@ Here's some javascript code simulating the Game of Life:
 <div style="margin-top:1em;">
     <input id="color1" type="color" value="#00ff00" class="form-control"/>
     <input id="color2" type="color" value="#000000" class="form-control"/>
-    <a id="reload" class="button">Reload</a>
-    <a id="start" class="button">Start</a>
-    <a id="stop" class="button">Stop</a>
+    <a id="start-stop" class="button">Start/Stop</a>
+    <a id="cross" class="button">Cross</a>
+    <a id="acorn" class="button">Acorn</a>
 </div>
