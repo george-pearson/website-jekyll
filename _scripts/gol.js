@@ -130,33 +130,22 @@ $(document).ready(function(){
     for (var nn = 0; nn < 8; nn++){
       var dx = neighbourhood[nn][0];
       var dy = neighbourhood[nn][1];
-      if (arr[pbcx(x + dx, arr.length)][pbcy(y + dy, arr[x].length)] === ALIVE){
+      if (arr[pbcz(x + dx, arr.length)][pbcz(y + dy, arr[x].length)] === ALIVE){
         nc++;
       }
     }
     return nc;
   }
 
-  //Periodic boundary conditions in x-direction:
-  function pbcx(ix, Lx){
-    if (ix >= Lx){
-      ix = ix - Lx;
+  //Periodic boundary conditions in z-direction:
+  function pbcz(iz, Lz){
+    if (iz >= Lz){
+      iz = iz - Lz;
     }
-    if (ix < 0){
-      ix = ix + Lx;
+    if (iz < 0){
+      iz = iz + Lz;
     }
-    return ix;
-  }
-
-  //Periodic boundary conditions in y-direction:
-  function pbcy(iy, Ly){
-    if (iy >= Ly){
-      iy = iy - Ly;
-    }
-    if (iy < 0){
-      iy = iy + Ly;
-    }
-    return iy;
+    return iz;
   }
 
   //Creates a 2D array, initialised to DEAD:
