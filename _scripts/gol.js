@@ -2,12 +2,15 @@
 $(document).ready(function(){
   var ALIVE = 1;
   var DEAD = 0;
-  var N = 250;
+  var N = 100;
   var arr = create2Darray(N, N, DEAD);
+  var cellSize = 5;
   var canvas = document.querySelector("#myCanvas");
-  canvas.width = arr.length;
-  canvas.height = arr[0].length;
+  canvas.width = arr.length*cellSize;
+  canvas.height = arr[0].length*cellSize;
   var ctx = canvas.getContext("2d");
+  var color1 = document.querySelector("#color1");
+  var color2 = document.querySelector("#color2");
   initialise_cross(arr);
   print_to_canvas(arr);
   
@@ -39,6 +42,14 @@ $(document).ready(function(){
     initialise_cross(arr);
     print_to_canvas(arr);
   });
+
+  document.querySelector("#color1").addEventListener("change", () => {
+		print_to_canvas(arr);
+  });
+  
+  document.querySelector("#color2").addEventListener("change", () => {
+		print_to_canvas(arr);
+	});
   
   function initialise_acorn(arr){
     var Lx = arr.length;
@@ -61,12 +72,12 @@ $(document).ready(function(){
       }
     }
     for (var x = Lx - 1; x >= 0; x--) {
-      var y = Ly - x;
+      var y = Ly - (x + 1);
       if (y >= 0 && y < Ly) {
         arr[x][y] = ALIVE;
       }
     }
-}
+  }
 
   // Iterate next state of arr
   function iterate(oldArray){
@@ -98,25 +109,18 @@ $(document).ready(function(){
   }
 
   function print_to_canvas(arr){
-    var myImageData = ctx.getImageData(0,0,arr.length, arr[0].length);
     for(var x=0; x < arr.length; x++){
       for(var y=0; y < arr[0].length; y++){
-        var index = (x+y*arr.length)*4
         if(arr[x][y] === DEAD){
-          myImageData.data[index+0] = 0; //r
-          myImageData.data[index+1] = 0; // g
-          myImageData.data[index+2] = 0; //b
-          myImageData.data[index+3] = 255; //a
+          ctx.fillStyle = color2.value;
+          ctx.fillRect(x*cellSize, y*cellSize, cellSize, cellSize);
         }
         if(arr[x][y] === ALIVE){
-          myImageData.data[index+0] = 0; //r
-          myImageData.data[index+1] = 255; // g
-          myImageData.data[index+2] = 0; //b
-          myImageData.data[index+3] = 255; //a
+          ctx.fillStyle = color1.value;
+          ctx.fillRect(x*cellSize, y*cellSize, cellSize, cellSize);
         }
       }
     }
-    ctx.putImageData(myImageData, 0, 0);
   }
 
   // Get number of ALIVE neighbours for point (x,y)
