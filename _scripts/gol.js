@@ -52,13 +52,13 @@ $(document).ready(function(){
 	});
   
   function initialise_acorn(arr){
-    var Lx = arr.length;
-    var Ly = arr[0].length;
+    var cx = Math.round(arr.length / 2);
+    var cy = Math.round(arr[0].length / 2);
     var acorn = [[0, 0],[-3, -1],[-2, -1],[-2, 1],[1, -1],[2, -1],[3, -1]];
     for (var i = 0; i < acorn.length; i++){
       var dx = acorn[i][0];
       var dy = acorn[i][1];
-      arr[Lx/2 + dx][Ly/2 + dy] = ALIVE;
+      arr[cx + dx][cy + dy] = ALIVE;
     }
   }
 
