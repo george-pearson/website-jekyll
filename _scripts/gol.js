@@ -50,12 +50,12 @@ $(document).ready(function(){
   });
 
   document.querySelector("#color1").addEventListener("change", () => {
-		print_to_canvas(arr);
+    print_to_canvas(arr);
   });
   
   document.querySelector("#color2").addEventListener("change", () => {
-		print_to_canvas(arr);
-	});
+    print_to_canvas(arr);
+  });
   
   function initialise_acorn(arr){
     var cx = Math.round(arr.length / 2);
@@ -166,13 +166,13 @@ $(document).ready(function(){
   
   // Converts a hex color string to rgb.
   function hexToRgb(hex) {
-		var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-		return result ? {
-			r: parseInt(result[1], 16),
-			g: parseInt(result[2], 16),
-			b: parseInt(result[3], 16)
-		} : null;
-	}
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    } : null;
+  }
 
   // Creates a 2D array, initialised to value
   function create2Darray(w, h, value){
