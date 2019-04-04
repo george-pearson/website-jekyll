@@ -59,7 +59,7 @@ p {
   border:1px solid $color--darkgrey;
   display: inline-block;
   cursor: pointer;
-  padding: 9px 23px;
+  padding: 8px 15px;
   &:hover{
     @extend %transition-duration;
     background-color: $color--darkblue
