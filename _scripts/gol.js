@@ -2,16 +2,16 @@
 $(document).ready(function(){
   var ALIVE = 1;
   var DEAD = 0;
-  var N = 100;
+  var N = 200;
   var arr = create2Darray(N, N, DEAD);
-  var cellSize = 5;
+  var cellSize = 3;
   var canvas = document.querySelector("#myCanvas");
   canvas.width = arr.length*cellSize;
   canvas.height = arr[0].length*cellSize;
   var ctx = canvas.getContext("2d");
   var color1 = document.querySelector("#color1");
   var color2 = document.querySelector("#color2");
-  initialise_cross(arr);
+  initialise_acorn(arr);
   print_to_canvas(arr);
   
   var requestId;
@@ -109,18 +109,26 @@ $(document).ready(function(){
   }
 
   function print_to_canvas(arr){
+    var myImageData = ctx.getImageData(0, 0, arr.length*cellSize, arr[0].length*cellSize);
+    var rgb1 = hexToRgb(color1.value);
+    var rgb2 = hexToRgb(color2.value);
     for(var x=0; x < arr.length; x++){
       for(var y=0; y < arr[0].length; y++){
-        if(arr[x][y] === DEAD){
-          ctx.fillStyle = color2.value;
-          ctx.fillRect(x*cellSize, y*cellSize, cellSize, cellSize);
-        }
-        if(arr[x][y] === ALIVE){
-          ctx.fillStyle = color1.value;
-          ctx.fillRect(x*cellSize, y*cellSize, cellSize, cellSize);
+        var isAlive = arr[x][y] === ALIVE;
+        for(var i = 0; i < cellSize; i++) {
+          for(var j = 0; j < cellSize; j++) {
+            var row = x * cellSize + i;
+            var col = y * cellSize + j;
+            var index = (row + col*arr.length*cellSize)*4
+            myImageData.data[index + 0] = isAlive ? rgb1.r : rgb2.r;
+            myImageData.data[index + 1] = isAlive ? rgb1.g : rgb2.g;
+            myImageData.data[index + 2] = isAlive ? rgb1.b : rgb2.b;
+            myImageData.data[index + 3] = 255;
+          }
         }
       }
     }
+    ctx.putImageData(myImageData, 0, 0);
   }
 
   // Get number of ALIVE neighbours for point (x,y)
@@ -147,6 +155,15 @@ $(document).ready(function(){
     }
     return iz;
   }
+
+  function hexToRgb(hex) {
+		var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+		return result ? {
+			r: parseInt(result[1], 16),
+			g: parseInt(result[2], 16),
+			b: parseInt(result[3], 16)
+		} : null;
+	}
 
   // Creates a 2D array, initialised to value
   function create2Darray(w, h, value){
