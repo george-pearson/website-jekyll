@@ -14,16 +14,22 @@ $(document).ready(function(){
   initialise_acorn(arr);
   print_to_canvas(arr);
   
+  $('#stop').hide();
   var requestId;
-  document.querySelector("#start-stop").addEventListener('click', () => {
+  document.querySelector("#start").addEventListener('click', () => {
     if (!requestId) {
       requestId = window.requestAnimationFrame(gameLoop);
-    }
-    else {
-      window.cancelAnimationFrame(requestId);
-      requestId = undefined;
+      $('#start').hide();
+      $('#stop').show();
     }
   });
+
+  document.querySelector("#stop").addEventListener('click', () => {
+    window.cancelAnimationFrame(requestId);
+    requestId = undefined;
+    $('#start').show();
+    $('#stop').hide();
+  })
 
   function gameLoop() {
     arr = iterate(arr);
@@ -32,13 +38,13 @@ $(document).ready(function(){
   }
 
   document.querySelector("#acorn").addEventListener('click', () => {
-    arr = create2Darray(arr.length,arr[0].length, DEAD);
+    arr = create2Darray(arr.length, arr[0].length, DEAD);
     initialise_acorn(arr);
     print_to_canvas(arr);
   });
 
   document.querySelector("#cross").addEventListener('click', () => {
-    arr = create2Darray(arr.length,arr[0].length, DEAD);
+    arr = create2Darray(arr.length, arr[0].length, DEAD);
     initialise_cross(arr);
     print_to_canvas(arr);
   });
@@ -81,9 +87,7 @@ $(document).ready(function(){
 
   // Iterate next state of arr
   function iterate(oldArray){
-    var Lx = oldArray.length;
-    var Ly = oldArray[0].length;
-    var newArray = create2Darray(Lx, Ly, DEAD);
+    var newArray = create2Darray(oldArray.length, oldArray[0].length, DEAD);
     for(var x = 0; x < oldArray.length; x++){
       for(var y = 0; y < oldArray[0].length; y++){
         if(oldArray[x][y] === ALIVE){
@@ -106,29 +110,6 @@ $(document).ready(function(){
       }
     }
     return newArray;
-  }
-
-  function print_to_canvas(arr){
-    var myImageData = ctx.getImageData(0, 0, arr.length*cellSize, arr[0].length*cellSize);
-    var rgb1 = hexToRgb(color1.value);
-    var rgb2 = hexToRgb(color2.value);
-    for(var x=0; x < arr.length; x++){
-      for(var y=0; y < arr[0].length; y++){
-        var isAlive = arr[x][y] === ALIVE;
-        for(var i = 0; i < cellSize; i++) {
-          for(var j = 0; j < cellSize; j++) {
-            var row = x * cellSize + i;
-            var col = y * cellSize + j;
-            var index = (row + col*arr.length*cellSize)*4
-            myImageData.data[index + 0] = isAlive ? rgb1.r : rgb2.r;
-            myImageData.data[index + 1] = isAlive ? rgb1.g : rgb2.g;
-            myImageData.data[index + 2] = isAlive ? rgb1.b : rgb2.b;
-            myImageData.data[index + 3] = 255;
-          }
-        }
-      }
-    }
-    ctx.putImageData(myImageData, 0, 0);
   }
 
   // Get number of ALIVE neighbours for point (x,y)
@@ -155,7 +136,35 @@ $(document).ready(function(){
     }
     return iz;
   }
-
+  
+  // Scales and prints the input array to canvas.
+  function print_to_canvas(arr){
+    var myImageData = ctx.getImageData(0, 0, arr.length*cellSize, arr[0].length*cellSize);
+    var rgb1 = hexToRgb(color1.value);
+    var rgb2 = hexToRgb(color2.value);
+    for(var x=0; x < arr.length; x++){
+      for(var y=0; y < arr[0].length; y++){
+        var isAlive = arr[x][y] === ALIVE;
+        for(var i = 0; i < cellSize; i++) {
+          for(var j = 0; j < cellSize; j++) {
+            var row = x * cellSize + i;
+            var col = y * cellSize + j;
+            var index = (row + col*arr.length*cellSize)*4
+            myImageData.data[index + 0] = isAlive ? rgb1.r : rgb2.r;
+            myImageData.data[index + 1] = isAlive ? rgb1.g : rgb2.g;
+            myImageData.data[index + 2] = isAlive ? rgb1.b : rgb2.b;
+            myImageData.data[index + 3] = 255;
+          }
+        }
+      }
+    }
+    ctx.putImageData(myImageData, 0, 0);
+    var imgUrl = canvas.toDataURL('image/png');
+    $("#divImg").empty();
+    $("#divImg").append("<img src='"+imgUrl+"'>");
+  }
+  
+  // Converts a hex color string to rgb.
   function hexToRgb(hex) {
 		var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
 		return result ? {
