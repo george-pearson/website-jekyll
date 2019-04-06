@@ -9,6 +9,7 @@ $(document).ready(function(){
   canvas.width = arr.length*cellSize;
   canvas.height = arr[0].length*cellSize;
   var ctx = canvas.getContext("2d");
+  var image = ctx.getImageData(0, 0, canvas.width, canvas.height);
   var color1 = document.querySelector("#color1");
   var color2 = document.querySelector("#color2");
   initialise_acorn(arr);
@@ -136,7 +137,6 @@ $(document).ready(function(){
   
   // Scales and prints the input array to canvas.
   function print_to_canvas(arr){
-    var myImageData = ctx.getImageData(0, 0, arr.length*cellSize, arr[0].length*cellSize);
     var rgb1 = hexToRgb(color1.value);
     var rgb2 = hexToRgb(color2.value);
     for(var x=0; x < arr.length; x++){
@@ -147,15 +147,15 @@ $(document).ready(function(){
             var row = x * cellSize + i;
             var col = y * cellSize + j;
             var index = (row + col*arr.length*cellSize)*4
-            myImageData.data[index + 0] = isAlive ? rgb1.r : rgb2.r;
-            myImageData.data[index + 1] = isAlive ? rgb1.g : rgb2.g;
-            myImageData.data[index + 2] = isAlive ? rgb1.b : rgb2.b;
-            myImageData.data[index + 3] = 255;
+            image.data[index + 0] = isAlive ? rgb1.r : rgb2.r;
+            image.data[index + 1] = isAlive ? rgb1.g : rgb2.g;
+            image.data[index + 2] = isAlive ? rgb1.b : rgb2.b;
+            image.data[index + 3] = 255;
           }
         }
       }
     }
-    ctx.putImageData(myImageData, 0, 0);
+    ctx.putImageData(image, 0, 0);
   }
   
   // Converts a hex color string to rgb.
