@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width", initial-scale=1.0>
+    <meta name="description" content="George Pearsons' Blog | A post about Conway's Game Of Life, and some JavaScript code to simulate it.">
+    <title>The Game Of Life | George Pearson</title>
+    <link rel="stylesheet" href="/assets/css/main.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico">
+    
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-134616286-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-134616286-1');
+</script>
+
+<!-- Post Scripts -->
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="/assets/scripts/gol.min.js"></script>
+
+</head>
+
+  <body>
+    <header>
+    <a href="/" aria-label="home"><div class="ma-boi"></div></a>
+    <nav>
+    <ul role="navigation" class="hidden">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/photos">Photos</a></li>
+    </ul>
+</nav>
+</header>
+		<main role="main">
+			<section class="post">
+    <div class="post-header">
+        <h1>The Game Of Life</h1>
+        <p class="post-date">April 6, 2019</p>
+        <a class="blue-link" data-disqus-identifier="/2019/04/06/the-game-of-life" href="https://georgepearson.co.uk/2019/04/06/the-game-of-life.html#disqus_thread">Comments</a>
+    </div>
+    <p><a class="blue-link" href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">The Game of Life</a> is a <a class="blue-link" href="https://en.wikipedia.org/wiki/Cellular_automaton">cellular automataton</a> designed by the British mathematician <a class="blue-link" href="https://en.wikipedia.org/wiki/John_Horton_Conway">John Conway</a>. A cellular automataton is a mathematical model that consists of a grid of cells, with each cell having an finite number of states (e.g “on” or “off”). A new grid configuration (a new <em>generation</em>) is created according to a fixed set of rules that determine the state of each cell based on its current state and the state of the cells around it (its <em>neighbourhood</em>). Cellular automata can be used to simulate a variety of real-world systems, from the <a class="blue-link" href="https://en.wikipedia.org/wiki/Belousov%E2%80%93Zhabotinsky_reaction">Belousov–Zhabotinsky reaction</a> to <a class="blue-link" href="https://blogs.msdn.microsoft.com/calvin_hsia/2014/09/30/fish-vs-sharks-predator-prey-simulation/">predator prey relationships</a>.</p>
+
+<p>In Conway’s Game of Life, the grid is a 2D array of square cells each with two states <em>alive</em> and <em>dead</em>. Each cell interacts with its 8 neighbours, which are the cells that are horizontally, vertically, or diagonally adjacent to it. The rules are:</p>
+
+<ul>
+  <li>Any live cell with fewer than two live neighbours dies, as if by underpopulation.</li>
+  <li>Any live cell with two or three live neighbours lives on to the next generation.</li>
+  <li>Any live cell with more than three live neighbours dies, as if by overpopulation.</li>
+  <li>Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.</li>
+</ul>
+
+<p>We can turn those rules into some simple JavaScript code:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">ALIVE</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">DEAD</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">N</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="nx">create2Darray</span><span class="p">(</span><span class="nx">N</span><span class="p">,</span> <span class="nx">N</span><span class="p">,</span> <span class="nx">DEAD</span><span class="p">);</span> <span class="c1">// Iitialises a new 2D array with array values set to 0.</span>
+<span class="kd">var</span> <span class="nx">requestId</span><span class="p">;</span>
+<span class="nx">gameLoop</span><span class="p">();</span>
+
+<span class="c1">// Runs forever, call window.cancelAnimationFrame(requestId) to stop.</span>
+<span class="kd">function</span> <span class="nx">gameLoop</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">arr</span> <span class="o">=</span> <span class="nx">iterate</span><span class="p">(</span><span class="nx">arr</span><span class="p">);</span>
+  <span class="nx">print_to_canvas</span><span class="p">(</span><span class="nx">arr</span><span class="p">);</span>
+  <span class="nx">requestId</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">gameLoop</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// Iterate the next state of the array.</span>
+<span class="kd">function</span> <span class="nx">iterate</span><span class="p">(</span><span class="nx">oldArray</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">newArray</span> <span class="o">=</span> <span class="nx">create2Darray</span><span class="p">(</span><span class="nx">oldArray</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span> <span class="nx">oldArray</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">length</span><span class="p">,</span> <span class="nx">DEAD</span><span class="p">);</span>
+  <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">x</span> <span class="o">&lt;</span> <span class="nx">oldArray</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">x</span><span class="o">++</span><span class="p">){</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">y</span> <span class="o">&lt;</span> <span class="nx">oldArray</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">length</span><span class="p">;</span> <span class="nx">y</span><span class="o">++</span><span class="p">){</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">oldArray</span><span class="p">[</span><span class="nx">x</span><span class="p">][</span><span class="nx">y</span><span class="p">]</span> <span class="o">===</span> <span class="nx">ALIVE</span><span class="p">){</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">getneighcount</span><span class="p">(</span><span class="nx">oldArray</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">){</span>
+          <span class="nx">newArray</span><span class="p">[</span><span class="nx">x</span><span class="p">][</span><span class="nx">y</span><span class="p">]</span> <span class="o">=</span> <span class="nx">DEAD</span><span class="p">;</span> <span class="c1">// Underpopulation kills cell.</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">getneighcount</span><span class="p">(</span><span class="nx">oldArray</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="o">===</span> <span class="mi">2</span> <span class="o">||</span> <span class="nx">getneighcount</span><span class="p">(</span><span class="nx">oldArray</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="o">===</span> <span class="mi">3</span><span class="p">){</span>
+          <span class="nx">newArray</span><span class="p">[</span><span class="nx">x</span><span class="p">][</span><span class="nx">y</span><span class="p">]</span> <span class="o">=</span> <span class="nx">ALIVE</span><span class="p">;</span> <span class="c1">// Surivies!</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">getneighcount</span><span class="p">(</span><span class="nx">oldArray</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">){</span>
+          <span class="nx">newArray</span><span class="p">[</span><span class="nx">x</span><span class="p">][</span><span class="nx">y</span><span class="p">]</span> <span class="o">=</span> <span class="nx">DEAD</span><span class="p">;</span> <span class="c1">// Overpopulation kills cell.</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">x</span><span class="p">][</span><span class="nx">y</span><span class="p">]</span> <span class="o">===</span> <span class="nx">DEAD</span> <span class="o">&amp;&amp;</span> <span class="nx">getneighcount</span><span class="p">(</span><span class="nx">oldArray</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="o">===</span> <span class="mi">3</span><span class="p">){</span>
+        <span class="nx">newArray</span><span class="p">[</span><span class="nx">x</span><span class="p">][</span><span class="nx">y</span><span class="p">]</span> <span class="o">=</span> <span class="nx">ALIVE</span><span class="p">;</span> <span class="c1">// Reproduction.</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">newArray</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>I’ve packaged the Game of Life code up into interactive tool below.</p>
+
+<canvas id="myCanvas" style="display: none;"></canvas>
+<div id="divImg" style="overflow-x: scroll;"></div>
+<div style="margin-top:1em;">
+    <input id="color1" type="color" value="#00ff00" class="form-control" />
+    <input id="color2" type="color" value="#000000" class="form-control" />
+    <a aria-label="start" id="start" class="button"><i class="fas fa-play"></i></a><a aria-label="stop" id="stop" class="button"><i class="fas fa-pause"></i></a>
+    <a id="cross" class="button">Cross</a>
+    <a id="acorn" class="button">Acorn</a>
+</div>
+
+<p>The full code for this tool is available on my <a href="https://github.com/george-pearson" class="blue-link">GitHub</a>. In the future I’m going to work on a even more interactive version (with free drawing) - so if you like this one stay tuned!</p>
+
+    <div id="disqus_thread"></div>
+</section>
+<script id="dsq-count-scr" src="//georgepearson-co-uk.disqus.com/count.js" async></script>
+<script>
+    var disqus_config = function () {
+    this.page.url = "https://georgepearson.co.uk/2019/04/06/the-game-of-life.html";
+    this.page.identifier = "/2019/04/06/the-game-of-life";
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://georgepearson-co-uk.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>
+    Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+
+		</main>
+    <footer>
+        <ul class="social-icons">
+                <li><a aria-label="Github" href="https://github.com/george-pearson"><i class="fab fa-github-alt fa-3x"></i></a></li>
+                <li><a aria-label="LinkedIn" href="https://linkedin.com/in/george-pearson-27244a30/"><i class="fab fa-linkedin fa-3x"></i></a></li>
+                <li><a aria-label="Mail" href="mailto:george-pearson.business@outlook.com"><i class="far fa-envelope fa-3x"></i></a></li>
+        </ul>
+        <p>&copy; George Pearson 2019</p>
+</footer>
+  </body>
+</html>
