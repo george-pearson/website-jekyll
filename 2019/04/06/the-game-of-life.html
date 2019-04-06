@@ -58,7 +58,40 @@ gtag('config', 'UA-134616286-1');
   <li>Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.</li>
 </ul>
 
-<p>We can turn those rules into some simple JavaScript code:</p>
+<p>We can get the number of alive neighbours of a cell in 2D array with the code below. Note we are applying <a href="https://en.wikipedia.org/wiki/Periodic_boundary_conditions" class="blue-link">periodic boundary conditions</a> in both the x and y directions.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">ALIVE</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">DEAD</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">N</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="nx">create2Darray</span><span class="p">(</span><span class="nx">N</span><span class="p">,</span> <span class="nx">N</span><span class="p">,</span> <span class="nx">DEAD</span><span class="p">);</span> <span class="c1">// Iitialises a new 2D array with array values set to 0.</span>
+<span class="kd">var</span> <span class="nx">neighbourhood</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]];</span>
+
+<span class="c1">// Get number of ALIVE neighbours for point (x,y)</span>
+<span class="kd">function</span> <span class="nx">getneighcount</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">nc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">nn</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">nn</span> <span class="o">&lt;</span> <span class="nx">neighbourhood</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">nn</span><span class="o">++</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">dx</span> <span class="o">=</span> <span class="nx">neighbourhood</span><span class="p">[</span><span class="nx">nn</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
+    <span class="kd">var</span> <span class="nx">dy</span> <span class="o">=</span> <span class="nx">neighbourhood</span><span class="p">[</span><span class="nx">nn</span><span class="p">][</span><span class="mi">1</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">pbcz</span><span class="p">(</span><span class="nx">x</span> <span class="o">+</span> <span class="nx">dx</span><span class="p">,</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">)][</span><span class="nx">pbcz</span><span class="p">(</span><span class="nx">y</span> <span class="o">+</span> <span class="nx">dy</span><span class="p">,</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">x</span><span class="p">].</span><span class="nx">length</span><span class="p">)]</span> <span class="o">===</span> <span class="nx">ALIVE</span><span class="p">){</span>
+      <span class="nx">nc</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">nc</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Periodic boundary conditions in z-direction:</span>
+<span class="kd">function</span> <span class="nx">pbcz</span><span class="p">(</span><span class="nx">iz</span><span class="p">,</span> <span class="nx">Lz</span><span class="p">){</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">iz</span> <span class="o">&gt;=</span> <span class="nx">Lz</span><span class="p">){</span>
+    <span class="nx">iz</span> <span class="o">=</span> <span class="nx">iz</span> <span class="o">-</span> <span class="nx">Lz</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">iz</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">){</span>
+    <span class="nx">iz</span> <span class="o">=</span> <span class="nx">iz</span> <span class="o">+</span> <span class="nx">Lz</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">iz</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Then we can just turn the Game of Life rules into some simple JavaScript code:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">ALIVE</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 <span class="kd">var</span> <span class="nx">DEAD</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
