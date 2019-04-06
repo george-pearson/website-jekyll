@@ -91,7 +91,7 @@ gtag('config', 'UA-134616286-1');
           <span class="nx">newArray</span><span class="p">[</span><span class="nx">x</span><span class="p">][</span><span class="nx">y</span><span class="p">]</span> <span class="o">=</span> <span class="nx">DEAD</span><span class="p">;</span> <span class="c1">// Overpopulation kills cell.</span>
         <span class="p">}</span>
       <span class="p">}</span>
-      <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">x</span><span class="p">][</span><span class="nx">y</span><span class="p">]</span> <span class="o">===</span> <span class="nx">DEAD</span> <span class="o">&amp;&amp;</span> <span class="nx">aliveNeighbourCount</span> <span class="o">===</span> <span class="mi">3</span><span class="p">){</span>
+      <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">oldArray</span><span class="p">[</span><span class="nx">x</span><span class="p">][</span><span class="nx">y</span><span class="p">]</span> <span class="o">===</span> <span class="nx">DEAD</span> <span class="o">&amp;&amp;</span> <span class="nx">aliveNeighbourCount</span> <span class="o">===</span> <span class="mi">3</span><span class="p">){</span>
         <span class="nx">newArray</span><span class="p">[</span><span class="nx">x</span><span class="p">][</span><span class="nx">y</span><span class="p">]</span> <span class="o">=</span> <span class="nx">ALIVE</span><span class="p">;</span> <span class="c1">// Reproduction.</span>
       <span class="p">}</span>
     <span class="p">}</span>
