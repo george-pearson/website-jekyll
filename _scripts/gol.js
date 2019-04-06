@@ -91,18 +91,19 @@ $(document).ready(function(){
     var newArray = create2Darray(oldArray.length, oldArray[0].length, DEAD);
     for(var x = 0; x < oldArray.length; x++){
       for(var y = 0; y < oldArray[0].length; y++){
+        var aliveNeighbourCount = getneighcount(oldArray, x, y);
         if(oldArray[x][y] === ALIVE){
-          if (getneighcount(oldArray, x, y) < 2){
+          if (aliveNeighbourCount < 2){
             newArray[x][y] = DEAD; // Underpopulation kills cell.
           }
-          else if (getneighcount(oldArray, x, y) === 2 || getneighcount(oldArray, x, y) === 3){
+          else if (aliveNeighbourCount === 2 || aliveNeighbourCount === 3){
             newArray[x][y] = ALIVE; // Surivies!
           }
-          else if (getneighcount(oldArray, x, y) > 3){
+          else if (aliveNeighbourCount > 3){
             newArray[x][y] = DEAD; // Overpopulation kills cell.
           }
         }
-        else if(arr[x][y] === DEAD && getneighcount(oldArray, x, y) === 3){
+        else if(arr[x][y] === DEAD && aliveNeighbourCount === 3){
           newArray[x][y] = ALIVE; // Reproduction.
         }
       }
