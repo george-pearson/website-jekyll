@@ -14,7 +14,41 @@ In Conway's Game of Life, the grid is a 2D array of square cells each with two s
 * Any live cell with more than three live neighbours dies, as if by overpopulation.
 * Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 
-We can turn those rules into some simple JavaScript code:
+We can get the number of alive neighbours of a cell in 2D array with the code below. Note we are applying <a href="https://en.wikipedia.org/wiki/Periodic_boundary_conditions" class="blue-link">periodic boundary conditions</a> in both the x and y directions.
+
+```javascript
+var ALIVE = 1;
+var DEAD = 0;
+var N = 200;
+var arr = create2Darray(N, N, DEAD); // Iitialises a new 2D array with array values set to 0.
+var neighbourhood = [[1, 0],[1, 1],[0, 1],[-1, 1],[-1, 0],[-1, -1],[0, -1],[1, -1]];
+
+// Get number of ALIVE neighbours for point (x,y)
+function getneighcount(arr, x, y){
+  var nc = 0;
+  for (var nn = 0; nn < neighbourhood.length; nn++){
+    var dx = neighbourhood[nn][0];
+    var dy = neighbourhood[nn][1];
+    if (arr[pbcz(x + dx, arr.length)][pbcz(y + dy, arr[x].length)] === ALIVE){
+      nc++;
+    }
+  }
+  return nc;
+}
+
+// Periodic boundary conditions in z-direction:
+function pbcz(iz, Lz){
+  if (iz >= Lz){
+    iz = iz - Lz;
+  }
+  if (iz < 0){
+    iz = iz + Lz;
+  }
+  return iz;
+}
+```
+
+Then we can just turn the Game of Life rules into some simple JavaScript code:
 
 ```javascript
 var ALIVE = 1;

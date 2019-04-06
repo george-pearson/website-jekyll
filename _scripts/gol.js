@@ -116,7 +116,7 @@ $(document).ready(function(){
   // Get number of ALIVE neighbours for point (x,y)
   function getneighcount(arr, x, y){
     var nc = 0;
-    for (var nn = 0; nn < 8; nn++){
+    for (var nn = 0; nn < neighbourhood.length; nn++){
       var dx = neighbourhood[nn][0];
       var dy = neighbourhood[nn][1];
       if (arr[pbcz(x + dx, arr.length)][pbcz(y + dy, arr[x].length)] === ALIVE){
