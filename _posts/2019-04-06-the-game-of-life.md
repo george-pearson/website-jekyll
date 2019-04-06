@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "The Game Of Life"
-subtitle: "A post about Conway's Game Of Life"
+subtitle: "A post about Conway's Game Of Life, and some JavaScript code to simulate it."
 date:   2019-04-06 11:00:00 +0000
 ---
 
