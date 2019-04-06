@@ -2,9 +2,9 @@
 $(document).ready(function(){
   var ALIVE = 1;
   var DEAD = 0;
-  var N = 200;
+  var N = 125;
   var arr = create2Darray(N, N, DEAD);
-  var cellSize = 3;
+  var cellSize = 4;
   var canvas = document.querySelector("#myCanvas");
   canvas.width = arr.length*cellSize;
   canvas.height = arr[0].length*cellSize;
