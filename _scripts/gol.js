@@ -101,11 +101,8 @@ $(document).ready(function(){
             newArray[x][y] = DEAD; // Overpopulation kills cell.
           }
         }
-        else if(arr[x][y] === DEAD){
-          if(getneighcount(oldArray, x, y) === 3)
-          {
-            newArray[x][y] = ALIVE; // Reproduction.
-          }
+        else if(arr[x][y] === DEAD && getneighcount(oldArray, x, y) === 3){
+          newArray[x][y] = ALIVE; // Reproduction.
         }
       }
     }
