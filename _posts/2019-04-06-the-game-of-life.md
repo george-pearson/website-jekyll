@@ -48,7 +48,7 @@ function iterate(oldArray){
           newArray[x][y] = DEAD; // Overpopulation kills cell.
         }
       }
-      else if(arr[x][y] === DEAD && aliveNeighbourCount === 3){
+      else if(oldArray[x][y] === DEAD && aliveNeighbourCount === 3){
         newArray[x][y] = ALIVE; // Reproduction.
       }
     }
