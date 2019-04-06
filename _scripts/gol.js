@@ -156,9 +156,6 @@ $(document).ready(function(){
       }
     }
     ctx.putImageData(myImageData, 0, 0);
-    var imgUrl = canvas.toDataURL('image/png');
-    $("#divImg").empty();
-    $("#divImg").append("<img src='"+imgUrl+"'>");
   }
   
   // Converts a hex color string to rgb.

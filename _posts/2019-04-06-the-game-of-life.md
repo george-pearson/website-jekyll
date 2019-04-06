@@ -58,8 +58,9 @@ function iterate(oldArray){
 
 I've packaged the Game of Life code up into interactive tool below.
 
-<canvas id="myCanvas" style="display: none;"></canvas>
-<div id="divImg" style="overflow-x: scroll;"></div>
+<div style="overflow-x: scroll;">
+    <canvas id="myCanvas"></canvas>
+</div>
 <div style="margin-top:1em;">
     <input id="color1" type="color" value="#00ff00" class="form-control"/>
     <input id="color2" type="color" value="#000000" class="form-control"/>
