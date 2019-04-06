@@ -89,7 +89,7 @@ $(document).ready(function(){
 
   // Iterate next state of arr
   function iterate(oldArray){
-    var newArray = create2Darray(oldArray.length, oldArray[0].length, DEAD);
+    var newArray = clone2Darray(oldArray);
     for(var x = 0; x < oldArray.length; x++){
       for(var y = 0; y < oldArray[0].length; y++){
         var aliveNeighbourCount = getneighcount(oldArray, x, y);
@@ -181,6 +181,13 @@ $(document).ready(function(){
       }
     }
     return arr;
+  }
+
+  function clone2Darray(oldArray){
+    var newArray = oldArray.map((i) => {
+      return i.slice(0);
+    });
+    return newArray;
   }
 
 });
