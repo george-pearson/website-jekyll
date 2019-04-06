@@ -10,6 +10,7 @@ $(document).ready(function(){
   canvas.height = arr[0].length*cellSize;
   var ctx = canvas.getContext("2d");
   var image = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  var imageData = image.data;
   var color1 = document.querySelector("#color1");
   var color2 = document.querySelector("#color2");
   var neighbourhood = [[1, 0],[1, 1],[0, 1],[-1, 1],[-1, 0],[-1, -1],[0, -1],[1, -1]];
@@ -148,10 +149,10 @@ $(document).ready(function(){
             var row = x * cellSize + i;
             var col = y * cellSize + j;
             var index = (row + col*arr.length*cellSize)*4
-            image.data[index + 0] = isAlive ? rgb1.r : rgb2.r;
-            image.data[index + 1] = isAlive ? rgb1.g : rgb2.g;
-            image.data[index + 2] = isAlive ? rgb1.b : rgb2.b;
-            image.data[index + 3] = 255;
+            imageData[index + 0] = isAlive ? rgb1.r : rgb2.r;
+            imageData[index + 1] = isAlive ? rgb1.g : rgb2.g;
+            imageData[index + 2] = isAlive ? rgb1.b : rgb2.b;
+            imageData[index + 3] = 255;
           }
         }
       }
