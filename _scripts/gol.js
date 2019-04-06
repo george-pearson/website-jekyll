@@ -12,6 +12,7 @@ $(document).ready(function(){
   var image = ctx.getImageData(0, 0, canvas.width, canvas.height);
   var color1 = document.querySelector("#color1");
   var color2 = document.querySelector("#color2");
+  var neighbourhood = [[1, 0],[1, 1],[0, 1],[-1, 1],[-1, 0],[-1, -1],[0, -1],[1, -1]];
   initialise_acorn(arr);
   print_to_canvas(arr);
   
@@ -113,7 +114,6 @@ $(document).ready(function(){
 
   // Get number of ALIVE neighbours for point (x,y)
   function getneighcount(arr, x, y){
-    var neighbourhood = [[1, 0],[1, 1],[0, 1],[-1, 1],[-1, 0],[-1, -1],[0, -1],[1, -1]];
     var nc = 0;
     for (var nn = 0; nn < 8; nn++){
       var dx = neighbourhood[nn][0];
