@@ -52,7 +52,7 @@
   sobelbutton.addEventListener("click", () => {
     var sobelImageData = sobelCtx.getImageData(0, 0, sobelCanvas.width, sobelCanvas.height);
     if(!sobelApplied){
-      var id = sobel(sobelImageData, sobelCanvas);
+      var id = sobel(sobelImageData, sobelCanvas, 0);
       sobelCtx.putImageData(id, 0, 0);
       sobelbutton.text = 'Reload';
       sobelApplied = true;
@@ -64,7 +64,78 @@
     }
   });
 
-  function sobel(imageData, canvas){
+  /*----------Sobel Colour----------*/
+  var sobelColourFigure = document.querySelector("#fig-sobel-colour");
+  var sobelColourImage = sobelColourFigure.querySelector("img");
+  var sobelColourCanvas = sobelColourFigure.querySelector("canvas");
+  var sobelColourbutton = sobelColourFigure.querySelector(".button");
+  sobelColourCanvas.width = sobelColourImage.width;
+  sobelColourCanvas.height = sobelColourImage.height;
+  var sobelColourCtx = sobelColourCanvas.getContext("2d");
+  sobelColourCtx.drawImage(sobelColourImage, 0, 0);
+
+  var sobelColourApplied = false;
+  sobelColourbutton.addEventListener("click", () => {
+    var sobelColourImageData = sobelColourCtx.getImageData(0, 0, sobelColourCanvas.width, sobelColourCanvas.height);
+    if(!sobelColourApplied){
+      var id = sobel(sobelColourImageData, sobelColourCanvas, 1);
+      sobelColourCtx.putImageData(id, 0, 0);
+      sobelColourbutton.text = 'Reload';
+      sobelColourApplied = true;
+    }
+    else{
+      sobelColourCtx.drawImage(sobelColourImage, 0, 0);
+      sobelColourbutton.text = 'Apply';
+      sobelColourApplied = false;
+    }
+  });
+
+  /*----------Loader Tool----------*/
+  var loaderTool = document.querySelector("#loader-tool");
+  var ltSelectButton = loaderTool.querySelector("#select");
+  var ltFileInput = loaderTool.querySelector("#fileInput");
+  var ltCanvas = loaderTool.querySelector("canvas");
+  var ltCtx = ltCanvas.getContext("2d");
+  var ltSaturationInput = loaderTool.querySelector("#saturation");
+  var ltSaturationValueDisplay = loaderTool.querySelector("#saturationValueDisplay");
+  var ltbutton = loaderTool.querySelector("#apply");
+  var ltImage;
+
+  ltSaturationInput.addEventListener("change", (e) => {ltSaturationValueDisplay.innerHTML = ltSaturationInput.value;});
+  ltSelectButton.addEventListener("click", () => {ltFileInput.click();});
+  ltFileInput.addEventListener("change", (e) => {
+    var reader = new FileReader();
+    reader.onload = function(event){
+        ltImage = new Image();
+        ltImage.onload = function(){
+          ltCanvas.width = ltImage.width;
+          ltCanvas.height = ltImage.height;
+          ltCtx.drawImage(ltImage,0,0);
+        }
+        ltImage.src = event.target.result;
+        ltbutton.style = "display: inline;";
+    }
+    reader.readAsDataURL(e.target.files[0]); 
+  });
+
+  var ltApplied = false;
+  ltbutton.addEventListener("click", () => {
+    var ltImageData = ltCtx.getImageData(0, 0, ltCanvas.width, ltCanvas.height);
+    if(!ltApplied){
+      var id = sobel(ltImageData, ltCanvas, ltSaturationInput.value);
+      ltCtx.putImageData(id, 0, 0);
+      ltbutton.text = 'Reload';
+      ltApplied = true;
+    }
+    else{
+      ltCtx.drawImage(ltImage, 0, 0);
+      ltbutton.text = 'Apply';
+      ltApplied = false;
+    }
+  });
+
+  /*----------Helper Functions----------*/
+  function sobel(imageData, canvas, saturation){
     var ctx = canvas.getContext("2d");
     var px = greyScale(imageData);
     var vertical = convolute(px,
@@ -79,17 +150,17 @@
     var orientation =  new Float32Array(px.width*px.height*4);
     var maxMagnitude = -1;
     for (var i=0; i<px.data.length; i+=4) {
-      var gy = vertical.data[i];
-      var gx = horizontal.data[i];
-      magnitude[i] = Math.sqrt(gx*gx+gy*gy);
+      var dy = vertical.data[i];
+      var dx = horizontal.data[i];
+      magnitude[i] = Math.sqrt(dx*dx + dy*dy);
       if(magnitude[i] > maxMagnitude){
         maxMagnitude = magnitude[i];
       }
-      orientation[i] = Math.atan2(gy, gx) + Math.PI;
+      orientation[i] = Math.atan2(dy, dx) + Math.PI;
     }
     var id = ctx.getImageData(0, 0, canvas.width, canvas.height);
     for (var i=0; i<id.data.length; i+=4) {
-      var rgb = HSVtoRGB(orientation[i]/(2*Math.PI), 1, magnitude[i]/maxMagnitude);
+      var rgb = HSVtoRGB(orientation[i]/(2*Math.PI), saturation, magnitude[i]/maxMagnitude);
       id.data[i] = rgb.r;
       id.data[i+1] = rgb.g;
       id.data[i+2] = rgb.b;
