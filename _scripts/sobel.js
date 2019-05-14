@@ -100,6 +100,7 @@
   var ltSaturationValueDisplay = loaderTool.querySelector("#saturationValueDisplay");
   var ltbutton = loaderTool.querySelector("#apply");
   var ltImage;
+  var ltMAX_IMAGE_SIZE = 600;
 
   ltSaturationInput.addEventListener("change", (e) => {ltSaturationValueDisplay.innerHTML = ltSaturationInput.value;});
   ltSelectButton.addEventListener("click", () => {ltFileInput.click();});
@@ -108,14 +109,15 @@
     reader.onload = function(event){
         ltImage = new Image();
         ltImage.onload = function(){
-          ltCanvas.width = ltImage.width;
-          ltCanvas.height = ltImage.height;
-          ltCtx.drawImage(ltImage,0,0);
+          drawImageToScale(ltImage, ltMAX_IMAGE_SIZE, ltCanvas, ltCtx);
         }
         ltImage.src = event.target.result;
         ltbutton.style = "display: inline;";
     }
-    reader.readAsDataURL(e.target.files[0]); 
+    var file  = e.target.files[0];
+    if (file && file.type.match('image.*')) {
+      reader.readAsDataURL(file); 
+    }
   });
 
   var ltApplied = false;
@@ -128,11 +130,21 @@
       ltApplied = true;
     }
     else{
-      ltCtx.drawImage(ltImage, 0, 0);
+      drawImageToScale(ltImage, ltMAX_IMAGE_SIZE, ltCanvas, ltCtx);
       ltbutton.text = 'Apply';
       ltApplied = false;
     }
   });
+
+  function drawImageToScale(image, maxSize, canvas, ctx){
+    var scale = 1;
+    if(maxSize < image.width || maxSize < image.height){
+      scale = Math.min(maxSize / image.width, maxSize / image.height);
+    }
+    canvas.width = image.width * scale;
+    canvas.height = image.height * scale;
+    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+  }
 
   /*----------Helper Functions----------*/
   function sobel(imageData, canvas, saturation){
