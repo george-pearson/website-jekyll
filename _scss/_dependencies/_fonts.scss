@@ -52,6 +52,7 @@ p {
 
 .button {
   @extend %font-basic;
+  @include fontsize(12);
   color: $color--white;
   background-color: $color--skyblue;
   text-decoration: none;

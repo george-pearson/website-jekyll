@@ -94,7 +94,7 @@ Just hit "Reload" below and you'll have your very own cloud image!
 <div style="margin-top:1em;">
     <input id="color1" type="color" value="#3c69ff" class="form-control"/>
     <input id="color2" type="color" value="#ffffff" class="form-control"/>
-    <a id="reload" class="button">Reload</a>
+    <button id="reload" class="button">Reload</button>
 </div>
 
 The full code for this is available on my <a href="https://github.com/george-pearson" class="blue-link">GitHub</a>. If you want a bigger image just increase `n`. Please bear in mind I've found `n > 11` tends to give my laptop a hard time and I haven't tested this on mobile so be careful (wouldn't want your browser to crash!).

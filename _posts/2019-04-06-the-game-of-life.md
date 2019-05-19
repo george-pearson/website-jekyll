@@ -99,9 +99,10 @@ I've packaged the Game of Life code up into interactive tool below.
 <div style="margin-top:1em;">
     <input id="color1" type="color" value="#00ff00" class="form-control"/>
     <input id="color2" type="color" value="#000000" class="form-control"/>
-    <a aria-label="start" id="start" class="button"><i class="fas fa-play"></i></a><a aria-label="stop" id="stop" class="button"><i class="fas fa-pause"></i></a>
-    <a id="cross" class="button">Cross</a>
-    <a id="acorn" class="button">Acorn</a>
+    <button aria-label="start" id="start" class="button"><i class="fas fa-play"></i></button>
+    <button aria-label="stop" id="stop" class="button"><i class="fas fa-pause"></i></button>
+    <button id="cross" class="button">Cross</button>
+    <button id="acorn" class="button">Acorn</button>
 </div>
 
 The full code for this tool is available on my <a href="https://github.com/george-pearson" class="blue-link">GitHub</a>. In the future I'm going to work on a even more interactive version (with free drawing) - so if you like this one stay tuned!

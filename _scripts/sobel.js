@@ -16,13 +16,13 @@
     if(!gsApplied){
       var id = greyScale(gsImageData);
       gsCtx.putImageData(id, 0, 0);
-      gsbutton.text = 'Reload';
+      gsbutton.innerHTML = 'Reload';
       gsImage.style = "display:none;";
       gsCanvas.style = "display:block;";
       gsApplied = true;
     }
     else{
-      gsbutton.text = 'Apply';
+      gsbutton.innerHTML = 'Apply';
       gsApplied = false;
     }
   });
@@ -55,13 +55,13 @@
     if(!sobelApplied){
       var id = sobel(sobelImageData, sobelCanvas, 0);
       sobelCtx.putImageData(id, 0, 0);
-      sobelbutton.text = 'Reload';
+      sobelbutton.innerHTML = 'Reload';
       sobelImage.style = "display:none;";
       sobelCanvas.style = "display:block;";
       sobelApplied = true;
     }
     else{
-      sobelbutton.text = 'Apply';
+      sobelbutton.innerHTML = 'Apply';
       sobelApplied = false;
     }
   });
@@ -82,13 +82,13 @@
     if(!sobelColourApplied){
       var id = sobel(sobelColourImageData, sobelColourCanvas, 1);
       sobelColourCtx.putImageData(id, 0, 0);
-      sobelColourbutton.text = 'Reload';
+      sobelColourbutton.innerHTML = 'Reload';
       sobelColourImage.style = "display:none;";
       sobelColourCanvas.style = "display:block;";
       sobelColourApplied = true;
     }
     else{
-      sobelColourbutton.text = 'Apply';
+      sobelColourbutton.innerHTML = 'Apply';
       sobelColourApplied = false;
     }
   });
@@ -129,12 +129,12 @@
     if(!ltApplied){
       var id = sobel(ltImageData, ltCanvas, ltSaturationInput.value);
       ltCtx.putImageData(id, 0, 0);
-      ltbutton.text = 'Reload';
+      ltbutton.innerHTML = 'Reload';
       ltApplied = true;
     }
     else{
       drawImageToScale(ltImage, ltMAX_IMAGE_SIZE, ltCanvas, ltCtx);
-      ltbutton.text = 'Apply';
+      ltbutton.innerHTML = 'Apply';
       ltApplied = false;
     }
   });
