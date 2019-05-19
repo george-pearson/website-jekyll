@@ -61,6 +61,7 @@ p {
   display: inline-block;
   cursor: pointer;
   padding: 8px 15px;
+  margin: 10px 0 10px 0;
   &:hover{
     @extend %transition-duration;
     background-color: $color--darkblue

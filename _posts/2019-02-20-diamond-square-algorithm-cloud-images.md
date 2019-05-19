@@ -90,7 +90,7 @@ Just hit "Reload" below and you'll have your very own cloud image!
 
 <canvas id="myCanvas" style="display: none;"></canvas>
 <div id="divImg" style="overflow-x: scroll;"><img src='/assets/images/cloudImage.jpg'></div>
-<div style="margin-top:1em;">
+<div>
     <input id="color1" type="color" value="#3c69ff" class="form-control"/>
     <input id="color2" type="color" value="#ffffff" class="form-control"/>
     <button id="reload" class="button">Reload</button>

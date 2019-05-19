@@ -95,7 +95,7 @@ I've packaged the Game of Life code up into interactive tool below.
 <div style="overflow-x: scroll;">
     <canvas id="myCanvas"></canvas>
 </div>
-<div style="margin-top:1em;">
+<div>
     <input id="color1" type="color" value="#00ff00" class="form-control"/>
     <input id="color2" type="color" value="#000000" class="form-control"/>
     <button aria-label="start" id="start" class="button"><i class="fas fa-play"></i></button>
