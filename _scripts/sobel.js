@@ -5,12 +5,12 @@
   var gsImage = gsFigure.querySelector("img");
   var gsCanvas = gsFigure.querySelector("canvas");
   var gsbutton = gsFigure.querySelector(".button");
-  gsCanvas.width = gsImage.width;
-  gsCanvas.height = gsImage.height;
   var gsCtx = gsCanvas.getContext("2d");
   
   var gsApplied = false;
   gsbutton.addEventListener("click", () => {
+    gsCanvas.width = gsImage.width;
+    gsCanvas.height = gsImage.height;
     gsCtx.drawImage(gsImage, 0, 0);
     var gsImageData = gsCtx.getImageData(0, 0, gsCanvas.width, gsCanvas.height);
     if(!gsApplied){
@@ -44,12 +44,12 @@
   var sobelImage = sobelFigure.querySelector("img");
   var sobelCanvas = sobelFigure.querySelector("canvas");
   var sobelbutton = sobelFigure.querySelector(".button");
-  sobelCanvas.width = sobelImage.width;
-  sobelCanvas.height = sobelImage.height;
   var sobelCtx = sobelCanvas.getContext("2d");
 
   var sobelApplied = false;
   sobelbutton.addEventListener("click", () => {
+    sobelCanvas.width = sobelImage.width;
+    sobelCanvas.height = sobelImage.height;
     sobelCtx.drawImage(sobelImage, 0, 0);
     var sobelImageData = sobelCtx.getImageData(0, 0, sobelCanvas.width, sobelCanvas.height);
     if(!sobelApplied){
@@ -71,12 +71,12 @@
   var sobelColourImage = sobelColourFigure.querySelector("img");
   var sobelColourCanvas = sobelColourFigure.querySelector("canvas");
   var sobelColourbutton = sobelColourFigure.querySelector(".button");
-  sobelColourCanvas.width = sobelColourImage.width;
-  sobelColourCanvas.height = sobelColourImage.height;
   var sobelColourCtx = sobelColourCanvas.getContext("2d");
 
   var sobelColourApplied = false;
   sobelColourbutton.addEventListener("click", () => {
+    sobelColourCanvas.width = sobelColourImage.width;
+    sobelColourCanvas.height = sobelColourImage.height;
     sobelColourCtx.drawImage(sobelColourImage, 0, 0);
     var sobelColourImageData = sobelColourCtx.getImageData(0, 0, sobelColourCanvas.width, sobelColourCanvas.height);
     if(!sobelColourApplied){
