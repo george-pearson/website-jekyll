@@ -8,19 +8,20 @@
   gsCanvas.width = gsImage.width;
   gsCanvas.height = gsImage.height;
   var gsCtx = gsCanvas.getContext("2d");
-  gsCtx.drawImage(gsImage, 0, 0);
   
   var gsApplied = false;
   gsbutton.addEventListener("click", () => {
+    gsCtx.drawImage(gsImage, 0, 0);
     var gsImageData = gsCtx.getImageData(0, 0, gsCanvas.width, gsCanvas.height);
     if(!gsApplied){
       var id = greyScale(gsImageData);
       gsCtx.putImageData(id, 0, 0);
       gsbutton.text = 'Reload';
+      gsImage.style = "display:none;";
+      gsCanvas.style = "display:block;";
       gsApplied = true;
     }
     else{
-      gsCtx.drawImage(gsImage, 0, 0);
       gsbutton.text = 'Apply';
       gsApplied = false;
     }
@@ -46,19 +47,20 @@
   sobelCanvas.width = sobelImage.width;
   sobelCanvas.height = sobelImage.height;
   var sobelCtx = sobelCanvas.getContext("2d");
-  sobelCtx.drawImage(sobelImage, 0, 0);
 
   var sobelApplied = false;
   sobelbutton.addEventListener("click", () => {
+    sobelCtx.drawImage(sobelImage, 0, 0);
     var sobelImageData = sobelCtx.getImageData(0, 0, sobelCanvas.width, sobelCanvas.height);
     if(!sobelApplied){
       var id = sobel(sobelImageData, sobelCanvas, 0);
       sobelCtx.putImageData(id, 0, 0);
       sobelbutton.text = 'Reload';
+      sobelImage.style = "display:none;";
+      sobelCanvas.style = "display:block;";
       sobelApplied = true;
     }
     else{
-      sobelCtx.drawImage(sobelImage, 0, 0);
       sobelbutton.text = 'Apply';
       sobelApplied = false;
     }
@@ -72,19 +74,20 @@
   sobelColourCanvas.width = sobelColourImage.width;
   sobelColourCanvas.height = sobelColourImage.height;
   var sobelColourCtx = sobelColourCanvas.getContext("2d");
-  sobelColourCtx.drawImage(sobelColourImage, 0, 0);
 
   var sobelColourApplied = false;
   sobelColourbutton.addEventListener("click", () => {
+    sobelColourCtx.drawImage(sobelColourImage, 0, 0);
     var sobelColourImageData = sobelColourCtx.getImageData(0, 0, sobelColourCanvas.width, sobelColourCanvas.height);
     if(!sobelColourApplied){
       var id = sobel(sobelColourImageData, sobelColourCanvas, 1);
       sobelColourCtx.putImageData(id, 0, 0);
       sobelColourbutton.text = 'Reload';
+      sobelColourImage.style = "display:none;";
+      sobelColourCanvas.style = "display:block;";
       sobelColourApplied = true;
     }
     else{
-      sobelColourCtx.drawImage(sobelColourImage, 0, 0);
       sobelColourbutton.text = 'Apply';
       sobelColourApplied = false;
     }
