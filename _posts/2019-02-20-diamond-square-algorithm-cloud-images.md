@@ -2,7 +2,6 @@
 layout: post
 title:  "Diamond-square Algorithm Cloud Images"
 subtitle: "I show off some JavaScript code to make cool cloud images using the Diamond-square algorithm."
-date:   2019-02-20 11:00:00 +0000
 ---
 
 The <a href="https://en.wikipedia.org/wiki/Diamond-square_algorithm" class="blue-link">Diamond-square algorithm (DSA)</a> is a popular method used to generate realistic <a href="https://en.wikipedia.org/wiki/Heightmap" class="blue-link">heightmaps</a> which resemble clouds, terrain and/or plasma. The JavaScript code below can be used to generate square cloud images of size <code class="highlighter-rouge">N = 2<sup>n</sup> + 1</code>. The images make great unique backgrounds (I have one on my phone!) and look rather pretty in my opinion.

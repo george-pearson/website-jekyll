@@ -2,7 +2,6 @@
 layout: post
 title:  "Hello World!"
 subtitle: "My first blog post on this site. I go over how I made my website and what I learnt along the way."
-date:   2019-02-09 11:00:00 +0000
 ---
 
 I've finally shipped! After about a month of what seems like going backwards and forwards I've made my first post on my brand new website. I’m going to try and do at least one post a month, and I plan to keep them relatively short. I can’t promise they won’t end up longer though if I really get into it!
