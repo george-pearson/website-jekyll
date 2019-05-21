@@ -17,8 +17,8 @@
       var id = greyScale(gsImageData);
       gsCtx.putImageData(id, 0, 0);
       gsbutton.innerHTML = 'Reload';
-      gsImage.style = "display:none;";
-      gsCanvas.style = "display:block;";
+      gsImage.style.display = "none";
+      gsCanvas.style.display = "block";
       gsApplied = true;
     }
     else{
@@ -56,8 +56,8 @@
       var id = sobel(sobelImageData, sobelCanvas, 0);
       sobelCtx.putImageData(id, 0, 0);
       sobelbutton.innerHTML = 'Reload';
-      sobelImage.style = "display:none;";
-      sobelCanvas.style = "display:block;";
+      sobelImage.style.display = "none";
+      sobelCanvas.style.display = "block";
       sobelApplied = true;
     }
     else{
@@ -83,8 +83,8 @@
       var id = sobel(sobelColourImageData, sobelColourCanvas, 1);
       sobelColourCtx.putImageData(id, 0, 0);
       sobelColourbutton.innerHTML = 'Reload';
-      sobelColourImage.style = "display:none;";
-      sobelColourCanvas.style = "display:block;";
+      sobelColourImage.style.display = "none";
+      sobelColourCanvas.style.display = "block";
       sobelColourApplied = true;
     }
     else{
@@ -115,7 +115,7 @@
           drawImageToScale(ltImage, ltMAX_IMAGE_SIZE, ltCanvas, ltCtx);
         }
         ltImage.src = event.target.result;
-        ltbutton.style = "display: inline;";
+        ltbutton.style.display = "inline";
     }
     var file  = e.target.files[0];
     if (file && file.type.match('image.*')) {
