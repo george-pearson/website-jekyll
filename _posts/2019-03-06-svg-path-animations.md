@@ -456,5 +456,4 @@ As always the full code for all these animations is on my <a href="https://githu
 * <a class="blue-link" href="https://jakearchibald.com/2013/animated-line-drawing-svg/">Jake Archibald's blog post on this in 2013!</a>
 * <a class="blue-link" href="https://css-tricks.com/svg-line-animation-works/">CSS-Tricks on SVG line animation</a>
 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="/assets/scripts/animation.min.js"></script>

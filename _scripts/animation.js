@@ -1,5 +1,5 @@
 "use strict";
-$(document).ready(function(){
+(function(){
     /*----------Maboi----------*/
     var maboi = document.querySelector(".maboi-drawself");
     var maboiLines = Array.from(maboi.querySelectorAll(".line"));
@@ -122,4 +122,4 @@ $(document).ready(function(){
     }
 
     cupcakeFade.addEventListener("click", runCupcakeFadeAnimations);
-});
+})();
