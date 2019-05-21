@@ -98,5 +98,4 @@ Just hit "Reload" below and you'll have your very own cloud image!
 
 The full code for this is available on my <a href="https://github.com/george-pearson" class="blue-link">GitHub</a>. If you want a bigger image just increase `n`. Please bear in mind I've found `n > 11` tends to give my laptop a hard time and I haven't tested this on mobile so be careful (wouldn't want your browser to crash!).
 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="/assets/scripts/cloud.min.js"></script>

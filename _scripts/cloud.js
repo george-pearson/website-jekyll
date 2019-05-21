@@ -1,23 +1,26 @@
 "use strict";
-$(document).ready(function(){
+(function(){
     var n = 9;
 	var N = Math.pow(2, n) + 1;
 	var arr;
+	var color1 = document.querySelector("#color1");
+	var color2 = document.querySelector("#color2");
+	var reloadBtn = document.querySelector("#reload");
 
-	$("#color1").on("change", function(){
+	color1.addEventListener("change", () => {
 		if(!arr){
 			arr = runDSA(N);
 		}
 		print_to_canvas(arr);
 	});
-	$("#color2").on("change", function(){
+	color2.addEventListener("change", () => {
 		if(!arr){
 			arr = runDSA(N);
 		}
 		print_to_canvas(arr);
 	});
-	
-	$("#reload").click(function(){
+
+	reloadBtn.addEventListener("click", () => {
 		arr = runDSA(N);
 		print_to_canvas(arr);
 	});
@@ -103,10 +106,10 @@ $(document).ready(function(){
 	
 	//Print array to screen:
 	function print_to_canvas(arr){
-		var canvas = $("#myCanvas")[0];
+		var canvas = document.querySelector("#myCanvas");
 		var ctx = canvas.getContext("2d");
 		var myImageData = ctx.getImageData(0,0, arr.length, arr.length);
-		var rgb = hexToRgb($("#color1").val());
+		var rgb = hexToRgb(color1.value);
 		for(var x = 0; x < arr.length; x++){
 			for(var y = 0; y < arr.length; y++){
 				var index = (x+y*arr.length)*4
@@ -120,9 +123,9 @@ $(document).ready(function(){
 		ctx.canvas.height = arr.length;
 		ctx.putImageData(myImageData, 0, 0);
 		
-		var imgUrl = canvasToImage(canvas, $("#color2").val());
-		$("#divImg").empty();
-		$("#divImg").append("<img src='"+imgUrl+"'>");
+		var imgUrl = canvasToImage(canvas, color2.value);
+		var divImg = document.querySelector("#divImg");
+		divImg.innerHTML = "<img src='"+imgUrl+"'>";
 	}
 	
 	function create2Darray(w,h){
@@ -170,4 +173,4 @@ $(document).ready(function(){
 		}
 		return imageData;
 	}	
-});
+})();
