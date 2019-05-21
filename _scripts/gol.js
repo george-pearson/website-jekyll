@@ -1,5 +1,5 @@
 "use strict";
-$(document).ready(function(){
+(function(){
   var ALIVE = 1;
   var DEAD = 0;
   var N = 200;
@@ -13,25 +13,27 @@ $(document).ready(function(){
   var imageData = image.data;
   var color1 = document.querySelector("#color1");
   var color2 = document.querySelector("#color2");
+  var stopButton = document.querySelector("#stop");
+  var startButton = document.querySelector("#start");
   var neighbourhood = [[1, 0],[1, 1],[0, 1],[-1, 1],[-1, 0],[-1, -1],[0, -1],[1, -1]];
   initialise_acorn(arr);
   print_to_canvas(arr);
   
-  $('#stop').hide();
+  stopButton.style.display = "none";
   var requestId;
-  document.querySelector("#start").addEventListener('click', () => {
+  startButton.addEventListener('click', () => {
     if (!requestId) {
       requestId = window.requestAnimationFrame(gameLoop);
-      $('#start').hide();
-      $('#stop').show();
+      startButton.style.display = "none";
+      stopButton.style.display = "inline";
     }
   });
 
-  document.querySelector("#stop").addEventListener('click', () => {
+  stopButton.addEventListener('click', () => {
     window.cancelAnimationFrame(requestId);
     requestId = undefined;
-    $('#start').show();
-    $('#stop').hide();
+    startButton.style.display = "inline";
+    stopButton.style.display = "none";
   })
 
   function gameLoop() {
@@ -52,11 +54,11 @@ $(document).ready(function(){
     print_to_canvas(arr);
   });
 
-  document.querySelector("#color1").addEventListener("change", () => {
+  color1.addEventListener("change", () => {
     print_to_canvas(arr);
   });
   
-  document.querySelector("#color2").addEventListener("change", () => {
+  color2.addEventListener("change", () => {
     print_to_canvas(arr);
   });
   
@@ -191,4 +193,4 @@ $(document).ready(function(){
     return newArray;
   }
 
-});
+})();

@@ -106,5 +106,4 @@ I've packaged the Game of Life code up into interactive tool below.
 
 The full code for this tool is available on my <a href="https://github.com/george-pearson" class="blue-link">GitHub</a>. In the future I'm going to work on a even more interactive version (with free drawing) - so if you like this one stay tuned!
 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="/assets/scripts/gol.min.js"></script>
