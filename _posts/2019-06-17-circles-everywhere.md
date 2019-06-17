@@ -1994,7 +1994,7 @@ function makeCircles(){
     }
     radii.sort().reverse();
     // Do our best to place the circles, larger ones first.
-    for(var i=0; i<n; i++){
+    for(var i = 0; i < n; i++){
         placeCircle(circles, radii[i]);
     }
     return circles;
@@ -2013,10 +2013,10 @@ function placeCircle(circles, r){
         if(cr + r < R){
             // The circle fits inside the larger circle.
             if(!circles.some(
-                (existingCircle) => overlapWith(CX+cx, CY+cy, r, existingCircle.cx, existingCircle.cy, existingCircle.r))
+                (existingCircle) => overlapWith(CX + cx, CY + cy, r, existingCircle.cx, existingCircle.cy, existingCircle.r))
             ){
                 // The circle doesn't overlap with any other small circles.
-                var circle = {'cx':CX+cx,'cy':CY+cy, 'r':r, 'colour':circleColours[randomIntFromInterval(0,3)]};
+                var circle = {'cx':CX + cx,'cy':CY + cy, 'r':r, 'colour':circleColours[randomIntFromInterval(0,3)]};
                 circles.push(circle); // Add the circle.
                 return;
             }

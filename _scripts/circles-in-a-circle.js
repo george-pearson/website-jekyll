@@ -76,8 +76,8 @@
                 
                 if(cr + r < R){
                     // The circle fits inside the larger circle.
-                    if(!circles.some((existingCircle) => overlapWith(CX+cx, CY+cy, r, existingCircle.cx, existingCircle.cy, existingCircle.r))){
-                        var circle = {'cx':CX+cx,'cy':CY+cy, 'r':r, 'colour':circleColours[randomIntFromInterval(0,3)]};
+                    if(!circles.some((existingCircle) => overlapWith(CX + cx, CY + cy, r, existingCircle.cx, existingCircle.cy, existingCircle.r))){
+                        var circle = {'cx':CX + cx,'cy':CY + cy, 'r':r, 'colour':circleColours[randomIntFromInterval(0,3)]};
                         circles.push(circle);
                         return;
                     }
