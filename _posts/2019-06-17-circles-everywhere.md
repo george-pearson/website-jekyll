@@ -4,7 +4,7 @@ title:  "Circles Everywhere!"
 subtitle: "Packing circles in a circle with JavaScript."
 ---
 
-I'm a big fan of Scalable Vector Graphics (SVGs). Other than retaining their quality when scaled, SVGs are particularly cool because you can animate them (see <a class="blue-link" href="{% post_url 2019-03-06-svg-path-animations %}">SVG Path Animations</a>). I typically create my SVGs in <a class="blue-link" href="https://inkscape.org/">Inkscape</a> then cut out the "bloat elements" Inkscape adds that aren't needed. However with browsers getting faster and faster these days, there is now the possibility of creating SVGs programatically using JavaScript.
+I'm a big fan of Scalable Vector Graphics (SVGs). Other than retaining their quality when scaled, SVGs are particularly cool because you can animate them (see <a class="blue-link" href="{% post_url 2019-03-06-svg-path-animations %}">SVG Path Animations</a>). I typically create my SVGs in <a class="blue-link" href="https://inkscape.org/">Inkscape</a> then cut out the "bloat elements" Inkscape adds that aren't needed. However with browsers getting faster and faster these days, there is now the possibility of creating SVGs programmatically using JavaScript.
 
 In this post I show off some code to generate an SVG image of packing a set amount of randomly sized small circles into a larger one, similar to the image below.
 
