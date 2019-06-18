@@ -17,6 +17,7 @@
     var colour4 = document.querySelector('#colour4');
 
     btnReload.addEventListener('click', ()=> {
+        btnReload.disabled = true;
         var circleColours = [colour1.value, colour2.value, colour3.value, colour4.value];
         var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svg.setAttribute("width", svgWidth);
@@ -42,6 +43,7 @@
         img.onload = function() {
             ctx.drawImage(img, 0, 0);
             URL.revokeObjectURL(url);
+            btnReload.disabled = false;
         }
         img.src = url;
         staticCircles.style.display = 'none';
