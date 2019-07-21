@@ -17,6 +17,9 @@ subtitle: "This is a blog about software development, science, and other musings
                 </h2>
                 <p class="post-meta">Posted on {{ post.date | date: "%B %-d, %Y" }}</p>
                 <p class="post-subtitle">{{ post.subtitle }}</p>
+                {% if post.imageSrc %}
+                    <img class="post-image" src="{{post.imageSrc}}" />
+                {% endif %}
             </a>
         </li>
     {% endfor %}

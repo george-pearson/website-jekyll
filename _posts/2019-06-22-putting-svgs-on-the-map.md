@@ -2,6 +2,7 @@
 layout: post
 title:  "Putting SVGs On The Map!"
 subtitle: "Packing circles in a map using Javascript"
+imageSrc: "/assets/images/uk_and_ireland_circles.png"
 ---
 
 In the <a class="blue-link" href="{% post_url 2019-06-17-circles-everywhere %}">previous blog post</a> I showed how to generate Scalable Vector Graphics (SVGs) of small circles packed inside a larger circle using JavaScript. In todays post I'm packing circles inside a map of the UK and Ireland.

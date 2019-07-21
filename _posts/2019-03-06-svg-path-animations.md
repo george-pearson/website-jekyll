@@ -2,6 +2,7 @@
 layout: post
 title:  "SVG Path Animations"
 subtitle: "A look into how to create SVG path animations using CSS transitions and a bit of JavaScript."
+imageSrc: "/assets/images/coffee.png"
 ---
 
 <div class="maboi-drawself-container">

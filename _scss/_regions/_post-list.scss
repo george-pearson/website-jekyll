@@ -5,7 +5,7 @@
     
     li {
         list-style: none;
-        padding: 1em 1em 3em;
+        padding: 0.5em;
         &:hover{
             background: $color--lightgrey;
             @extend %transition-duration;
@@ -15,6 +15,7 @@
     h2 {
         color: $color--skyblue;
         margin-bottom: 0.2em;
+        margin-top: 0.2em;
     }
 
     a {
@@ -33,5 +34,12 @@
     .post-subtitle {
         margin: 0.2em auto;
         color: $color--darkgrey;
-	}
+    }
+    
+    .post-image {
+        @extend %center;
+        padding: 0.5em;
+        display: block;
+        height: 20em;
+    }
 }
