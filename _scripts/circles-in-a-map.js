@@ -17,34 +17,58 @@
   const colour4 = document.querySelector('#colour4');
   var rminInput = figure.querySelector("#rmin");
   var rminValueDisplay = figure.querySelector("#rminValueDisplay");
-  rminInput.addEventListener("change", (e) => {rminValueDisplay.innerHTML = parseFloat(rminInput.value).toFixed(2);});
+  rminValueDisplay.innerHTML = rminInput.value
+  rminInput.addEventListener("change", (e) => {rminValueDisplay.innerHTML = rminInput.value;});
   var rmaxInput = figure.querySelector("#rmax");
   var rmaxValueDisplay = figure.querySelector("#rmaxValueDisplay");
-  rmaxInput.addEventListener("change", (e) => {rmaxValueDisplay.innerHTML = parseFloat(rmaxInput.value).toFixed(2);});
+  rmaxValueDisplay.innerHTML = rmaxInput.value;
+  rmaxInput.addEventListener("change", (e) => {rmaxValueDisplay.innerHTML = rmaxInput.value;});
   ctx.drawImage(image, 0, 0);
 
   btnReload.addEventListener('click', ()=> {
     circlesImage.style.display = "none";
     canvas.style.display = "block";
     btnReload.disabled = true;
+    btnReload.innerHTML = 'Working on it';
     ctx.drawImage(image, 0, 0);
     const imageData = (ctx.getImageData(0, 0, LX, LY)).data;
     const circleColours = [colour1.value, colour2.value, colour3.value, colour4.value];
-    const rmin = parseFloat(rminInput.value).value;
+    const rmin = parseFloat(rminInput.value);
     const rmax = parseFloat(rmaxInput.value);
-    const circles = makeCircles(imageData, circleColours, rmin, rmax);
-    const svg = createSVGFromCircles(circles, LX, LY);
-    ctx.clearRect(0, 0, LX, LY);
-    const svgString = new XMLSerializer().serializeToString(svg);
-    const blob = new Blob([svgString], {type:"image/svg+xml;charset=utf-8"});
-    const url = URL.createObjectURL(blob);
-    const svgImg = new Image();
-    svgImg.onload = function() {
-        ctx.drawImage(svgImg, 0, 0);
-        URL.revokeObjectURL(url);
-        btnReload.disabled = false;
-    }
-    svgImg.src = url;
+    var worker = new Worker('/assets/scripts/circles-in-a-map.worker.min.js');
+    worker.addEventListener('message', function(e) {
+      window.clearInterval(loadingIntervalId);
+      var circles = e.data[0];
+      const svg = createSVGFromCircles(circles, LX, LY);
+      ctx.clearRect(0, 0, LX, LY);
+      const svgString = new XMLSerializer().serializeToString(svg);
+      const blob = new Blob([svgString], {type:"image/svg+xml;charset=utf-8"});
+      const url = URL.createObjectURL(blob);
+      const svgImg = new Image();
+      svgImg.onload = function() {
+          ctx.drawImage(svgImg, 0, 0);
+          URL.revokeObjectURL(url);
+          btnReload.innerHTML = 'Reload';
+          btnReload.disabled = false;
+      }
+      svgImg.src = url;
+    }, false);
+    worker.postMessage([{
+      'imageData': imageData, 
+      'circleColours': circleColours,
+      'rmin': rmin, 
+      'rmax': rmax,
+      'n': n,
+      'LX': LX,
+      'LY': LY}]);
+      var loadingIntervalId = self.setInterval( function() {
+        if (btnReload.innerHTML.length > "Working on it".length + 2){
+          btnReload.innerHTML = "Working on it";
+        }
+        else{
+          btnReload.innerHTML += ".";
+        }
+      }, 1000);
   });
   
   function makeCircles(imageData, circleColours, rmin, rmax) {

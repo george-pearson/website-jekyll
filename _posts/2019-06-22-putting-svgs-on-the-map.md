@@ -57,11 +57,11 @@ Here's the finished result:
     <canvas style="display:None" id="myCanvas"></canvas>
     <div style="padding:1em 0 1em 0;">
         <label for="rmin">Min radius:</label>
-        <input id="rmin" type="range" step="1" min="1" max="5" value="2"/>
-        <span style="padding:0 1em 0 1em;" id="rminValueDisplay">2</span>
+        <input id="rmin" type="range" step="1" min="2" max="5" value="2"/>
+        <span style="padding:0 1em 0 1em;" id="rminValueDisplay"></span>
         <label for="rmax">Max radius:</label>
         <input id="rmax" type="range" step="1" min="5" max="8" value="6"/>
-        <span style="padding:0 1em 0 1em;" id="rmaxValueDisplay">6</span>
+        <span style="padding:0 1em 0 1em;" id="rmaxValueDisplay"></span>
     </div>
     <div>
         <input id="colour1" type="color" value="#993300" class="form-control"/>
