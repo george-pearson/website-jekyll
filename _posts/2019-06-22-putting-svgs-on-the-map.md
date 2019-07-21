@@ -55,6 +55,14 @@ Here's the finished result:
 <figure id="fig-circles" style="justify-self: center;">
     <img id="uk_and_ireland_circles" src="/assets/images/uk_and_ireland_circles.png" />
     <canvas style="display:None" id="myCanvas"></canvas>
+    <div style="padding:1em 0 1em 0;">
+        <label for="rmin">Min radius:</label>
+        <input id="rmin" type="range" step="1" min="1" max="5" value="2"/>
+        <span style="padding:0 1em 0 1em;" id="rminValueDisplay">2</span>
+        <label for="rmax">Max radius:</label>
+        <input id="rmax" type="range" step="1" min="5" max="8" value="6"/>
+        <span style="padding:0 1em 0 1em;" id="rmaxValueDisplay">6</span>
+    </div>
     <div>
         <input id="colour1" type="color" value="#993300" class="form-control"/>
         <input id="colour2" type="color" value="#a5c916" class="form-control"/>

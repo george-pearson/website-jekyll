@@ -11,12 +11,16 @@
   canvas.width = LX;
   canvas.height = LY;
   const n = 3000; // n is the maximum number of circles
-  const rmin = 1.25; // The minimum packing circle radius.
-  const rmax = 6.25; // The maximum packing circle radius.
   const colour1 = document.querySelector('#colour1');
   const colour2 = document.querySelector('#colour2');
   const colour3 = document.querySelector('#colour3');
   const colour4 = document.querySelector('#colour4');
+  var rminInput = figure.querySelector("#rmin");
+  var rminValueDisplay = figure.querySelector("#rminValueDisplay");
+  rminInput.addEventListener("change", (e) => {rminValueDisplay.innerHTML = parseFloat(rminInput.value).toFixed(2);});
+  var rmaxInput = figure.querySelector("#rmax");
+  var rmaxValueDisplay = figure.querySelector("#rmaxValueDisplay");
+  rmaxInput.addEventListener("change", (e) => {rmaxValueDisplay.innerHTML = parseFloat(rmaxInput.value).toFixed(2);});
   ctx.drawImage(image, 0, 0);
 
   btnReload.addEventListener('click', ()=> {
@@ -26,7 +30,9 @@
     ctx.drawImage(image, 0, 0);
     const imageData = (ctx.getImageData(0, 0, LX, LY)).data;
     const circleColours = [colour1.value, colour2.value, colour3.value, colour4.value];
-    const circles = makeCircles(imageData, circleColours);
+    const rmin = parseFloat(rminInput.value).value;
+    const rmax = parseFloat(rmaxInput.value);
+    const circles = makeCircles(imageData, circleColours, rmin, rmax);
     const svg = createSVGFromCircles(circles, LX, LY);
     ctx.clearRect(0, 0, LX, LY);
     const svgString = new XMLSerializer().serializeToString(svg);
@@ -41,7 +47,7 @@
     svgImg.src = url;
   });
   
-  function makeCircles(imageData, circleColours) {
+  function makeCircles(imageData, circleColours, rmin, rmax) {
     const circles = [];
     const radii = [];
     // First choose a set of n random radii and sort them. We use
