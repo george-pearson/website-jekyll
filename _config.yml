@@ -7,3 +7,4 @@ plugins: [jekyll-paginate]
 paginate: 5
 markdown: kramdown
 highlighter: rouge
+future: true
