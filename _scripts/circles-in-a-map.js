@@ -15,109 +15,52 @@
   const colour2 = document.querySelector('#colour2');
   const colour3 = document.querySelector('#colour3');
   const colour4 = document.querySelector('#colour4');
-  var rminInput = figure.querySelector("#rmin");
-  var rminValueDisplay = figure.querySelector("#rminValueDisplay");
+  const rminInput = figure.querySelector("#rmin");
+  const rminValueDisplay = figure.querySelector("#rminValueDisplay");
   rminValueDisplay.innerHTML = rminInput.value
   rminInput.addEventListener("change", (e) => {rminValueDisplay.innerHTML = rminInput.value;});
-  var rmaxInput = figure.querySelector("#rmax");
-  var rmaxValueDisplay = figure.querySelector("#rmaxValueDisplay");
+  const rmaxInput = figure.querySelector("#rmax");
+  const rmaxValueDisplay = figure.querySelector("#rmaxValueDisplay");
   rmaxValueDisplay.innerHTML = rmaxInput.value;
   rmaxInput.addEventListener("change", (e) => {rmaxValueDisplay.innerHTML = rmaxInput.value;});
   ctx.drawImage(image, 0, 0);
 
   btnReload.addEventListener('click', ()=> {
-    circlesImage.style.display = "none";
-    canvas.style.display = "block";
-    btnReload.disabled = true;
-    btnReload.innerHTML = 'Working on it';
+    enableDiableUI(false);
     ctx.drawImage(image, 0, 0);
     const imageData = (ctx.getImageData(0, 0, LX, LY)).data;
     const circleColours = [colour1.value, colour2.value, colour3.value, colour4.value];
     const rmin = parseFloat(rminInput.value);
     const rmax = parseFloat(rmaxInput.value);
-    var worker = new Worker('/assets/scripts/circles-in-a-map.worker.min.js');
-    worker.addEventListener('message', function(e) {
-      window.clearInterval(loadingIntervalId);
-      var circles = e.data[0];
-      const svg = createSVGFromCircles(circles, LX, LY);
-      ctx.clearRect(0, 0, LX, LY);
-      const svgString = new XMLSerializer().serializeToString(svg);
-      const blob = new Blob([svgString], {type:"image/svg+xml;charset=utf-8"});
-      const url = URL.createObjectURL(blob);
-      const svgImg = new Image();
-      svgImg.onload = function() {
-          ctx.drawImage(svgImg, 0, 0);
-          URL.revokeObjectURL(url);
-          btnReload.innerHTML = 'Reload';
-          btnReload.disabled = false;
-      }
-      svgImg.src = url;
-    }, false);
-    worker.postMessage([{
+    const worker = new Worker('/assets/scripts/circles-in-a-map.worker.min.js');
+    worker.addEventListener('message', onCirclesComplete, false);
+    const params = {
       'imageData': imageData, 
       'circleColours': circleColours,
       'rmin': rmin, 
       'rmax': rmax,
       'n': n,
       'LX': LX,
-      'LY': LY}]);
-      var loadingIntervalId = self.setInterval( function() {
-        if (btnReload.innerHTML.length > "Working on it".length + 2){
-          btnReload.innerHTML = "Working on it";
-        }
-        else{
-          btnReload.innerHTML += ".";
-        }
-      }, 1000);
+      'LY': LY
+    }
+    worker.postMessage([params]);
   });
-  
-  function makeCircles(imageData, circleColours, rmin, rmax) {
-    const circles = [];
-    const radii = [];
-    // First choose a set of n random radii and sort them. We use
-    // Math.random()*Math.random() to favour small circles.
-    for(let i = 0; i < n; i++){
-        const radius = rmin + (rmax - rmin)*(Math.random()*Math.random())
-        radii.push(radius);
-    }
-    radii.sort().reverse();
-    // Do our best to place the circles, larger ones first.
-    for(let i = 0; i < n; i++){
-        placeCircle(circles, radii[i], imageData, circleColours);
-    }
-    return circles;
-  };
 
-  function placeCircle(circles, radius, imageData, circleColours){
-    //The guard number: if we don't place a circle within this number of trials, we give up.
-    let guard = 500;
-    while(guard > 0){
-        // Pick a random position, uniformly on the image.
-        const cx = randomIntFromInterval(0, LX-1);
-        const cy = randomIntFromInterval(0, LY-1);
-        const index = (cx+cy*LX)*4;
-        const red = imageData[index + 0];
-        const green = imageData[index + 1];
-        const blue = imageData[index + 2];
-        const average = (red + green + blue) / 3;
-        if(average < 255/2 && !circles.some((existingCircle) => overlapWith(cx, cy, radius, existingCircle.cx, existingCircle.cy, existingCircle.r))){
-          const circle = {'cx': cx,'cy': cy, 'r':radius, 'colour':circleColours[randomIntFromInterval(0,3)]};
-          circles.push(circle);
-          return;
-        }
-        guard -= 1;
+  function onCirclesComplete(e){
+    const circles = e.data[0];
+    const svg = createSVGFromCircles(circles, LX, LY);
+    ctx.clearRect(0, 0, LX, LY);
+    const svgString = new XMLSerializer().serializeToString(svg);
+    const blob = new Blob([svgString], {type:"image/svg+xml;charset=utf-8"});
+    const url = URL.createObjectURL(blob);
+    const svgImg = new Image();
+    svgImg.onload = function() {
+        ctx.drawImage(svgImg, 0, 0);
+        URL.revokeObjectURL(url);
+        enableDiableUI(true);
     }
-    console.log("Guard reached");
-  }
-
-  function randomIntFromInterval(min, max){
-    return Math.floor(Math.random()*(max-min+1)+min);
-  }
-
-  function overlapWith(cx1, cy1, r1, cx2, cy2, r2){
-    const d = Math.hypot(cx1-cx2, cy1-cy2);
-    return d < r1 + r2;
-  }
+    svgImg.src = url;
+}
 
   function createSVGFromCircles(circles, LX, LY){
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -132,6 +75,31 @@
       svg.appendChild(circle);
     }
     return svg;
+  }
+
+  function enableDiableUI(enable){
+    if(enable){
+      btnReload.innerHTML = 'Run';
+      btnReload.disabled = false;
+      rminInput.disabled = false;
+      rmaxInput.disabled = false;
+      colour1.disabled = false;
+      colour2.disabled = false;
+      colour3.disabled = false;
+      colour4.disabled = false;
+    }
+    else{
+      btnReload.innerHTML = 'Working on it...';
+      btnReload.disabled = true;
+      rminInput.disabled = true;
+      rmaxInput.disabled = true;
+      colour1.disabled = true;
+      colour2.disabled = true;
+      colour3.disabled = true;
+      colour4.disabled = true;
+      circlesImage.style.display = "none";
+      canvas.style.display = "block";
+    }
   }
 
 })();

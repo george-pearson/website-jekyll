@@ -34,7 +34,7 @@
     //The guard number: if we don't place a circle within this number of trials, we give up.
     let guard = 500;
     while(guard > 0){
-        // Pick a random position, uniformly on the image.
+        // Pick a random position on the image.
         const cx = randomIntFromInterval(0, LX-1);
         const cy = randomIntFromInterval(0, LY-1);
         const index = (cx+cy*LX)*4;
@@ -49,7 +49,7 @@
         }
         guard -= 1;
     }
-    console.log("Guard reached");
+    //console.log("Guard reached");
   }
 
   function randomIntFromInterval(min, max){
