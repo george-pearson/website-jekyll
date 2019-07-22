@@ -10,7 +10,7 @@ In the <a class="blue-link" href="{% post_url 2019-06-17-circles-everywhere %}">
 The first thing we will need is a black and white map of the UK and Ireland. This is surprisingly difficult to find online, but after some intense search engine work I was able to get one:
 
 <figure style="justify-self: center;">
-    <img id="uk_and_ireland" src="/assets/images/uk_and_ireland.png" />
+    <img id="uk_and_ireland" style="width:100%;" src="/assets/images/uk_and_ireland.png" />
 </figure>
 
 A black and white image allows us to easily check whether a pixel in the image is land (black) or sea (white), using its RGB(Red, Green, Blue) values. White, RGB(255, 255, 255), pixels will have an average RGB of 255 whereas black, RGB(0, 0, 0), pixels will have an average RGB of 0.
@@ -53,25 +53,27 @@ We can use the half way point between 0 and 255 (128) to determine if a pixel is
 
 Here's the finished result:
 
-<figure id="fig-circles" style="justify-self: center;">
-    <img id="uk_and_ireland_circles" src="/assets/images/uk_and_ireland_circles.png" />
-    <canvas style="display:None" id="myCanvas"></canvas>
-    <div style="padding:1em 0 1em 0;">
-        <label for="rmin">Min radius:</label>
-        <input id="rmin" type="range" step="1" min="2" max="5" value="2"/>
-        <span style="padding:0 1em 0 1em;" id="rminValueDisplay"></span>
-        <label for="rmax">Max radius:</label>
-        <input id="rmax" type="range" step="1" min="5" max="8" value="6"/>
-        <span style="padding:0 1em 0 1em;" id="rmaxValueDisplay"></span>
-    </div>
-    <div>
-        <input id="colour1" type="color" value="#993300" class="form-control"/>
-        <input id="colour2" type="color" value="#a5c916" class="form-control"/>
-        <input id="colour3" type="color" value="#00AA66" class="form-control"/>
-        <input id="colour4" type="color" value="#FF9900" class="form-control"/>
-        <button class="button">Run</button>
-    </div>
-</figure>
+<div style="overflow-x: scroll;">
+    <img id="uk_and_ireland_circles" style="display:block;" src="/assets/images/uk_and_ireland_circles.png">
+    <canvas id="myCanvas" style="display:None;" id="myCanvas"></canvas>
+<div>
+<div style="padding:1em 0 1em 0;">
+    <label for="rmin">Min radius:</label>
+    <input id="rmin" type="range" step="1" min="2" max="5" value="2"/>
+    <span style="padding-left:1em;" id="rminValueDisplay"></span>
+</div>
+<div style="padding:1em 0 1em 0;">
+    <label for="rmax">Max radius:</label>
+    <input id="rmax" type="range" step="1" min="5" max="8" value="6"/>
+    <span style="padding-left:1em;" id="rmaxValueDisplay"></span>
+</div>
+<div style="padding-bottom:1em;">
+    <input id="colour1" type="color" value="#993300" class="form-control"/>
+    <input id="colour2" type="color" value="#a5c916" class="form-control"/>
+    <input id="colour3" type="color" value="#00AA66" class="form-control"/>
+    <input id="colour4" type="color" value="#FF9900" class="form-control"/>
+    <button id="btnRun" class="button">Run</button>
+</div>
 
 As always all of the code is available on my <a href="https://github.com/george-pearson" class="blue-link">GitHub</a>. 
 

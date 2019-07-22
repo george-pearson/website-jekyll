@@ -1,13 +1,12 @@
 "use strict";
 (function() {
-  const figure = document.querySelector("#fig-circles");
   const image = document.querySelector("#uk_and_ireland");
   const circlesImage = document.querySelector("#uk_and_ireland_circles");
-  const canvas = figure.querySelector("canvas");
-  const btnReload = figure.querySelector("button");
+  const canvas = document.querySelector("#myCanvas");
+  const btnRun = document.querySelector("#btnRun");
   const ctx = canvas.getContext("2d");
-  const LX = image.width;
-  const LY = image.height;
+  const LX = image.naturalWidth;
+  const LY = image.naturalHeight;
   canvas.width = LX;
   canvas.height = LY;
   const n = 3000; // n is the maximum number of circles
@@ -15,17 +14,17 @@
   const colour2 = document.querySelector('#colour2');
   const colour3 = document.querySelector('#colour3');
   const colour4 = document.querySelector('#colour4');
-  const rminInput = figure.querySelector("#rmin");
-  const rminValueDisplay = figure.querySelector("#rminValueDisplay");
+  const rminInput = document.querySelector("#rmin");
+  const rminValueDisplay = document.querySelector("#rminValueDisplay");
   rminValueDisplay.innerHTML = rminInput.value
   rminInput.addEventListener("change", (e) => {rminValueDisplay.innerHTML = rminInput.value;});
-  const rmaxInput = figure.querySelector("#rmax");
-  const rmaxValueDisplay = figure.querySelector("#rmaxValueDisplay");
+  const rmaxInput = document.querySelector("#rmax");
+  const rmaxValueDisplay = document.querySelector("#rmaxValueDisplay");
   rmaxValueDisplay.innerHTML = rmaxInput.value;
   rmaxInput.addEventListener("change", (e) => {rmaxValueDisplay.innerHTML = rmaxInput.value;});
   ctx.drawImage(image, 0, 0);
 
-  btnReload.addEventListener('click', ()=> {
+  btnRun.addEventListener('click', ()=> {
     enableDiableUI(false);
     ctx.drawImage(image, 0, 0);
     const imageData = (ctx.getImageData(0, 0, LX, LY)).data;
@@ -79,8 +78,8 @@
 
   function enableDiableUI(enable){
     if(enable){
-      btnReload.innerHTML = 'Run';
-      btnReload.disabled = false;
+      btnRun.innerHTML = 'Run';
+      btnRun.disabled = false;
       rminInput.disabled = false;
       rmaxInput.disabled = false;
       colour1.disabled = false;
@@ -89,8 +88,8 @@
       colour4.disabled = false;
     }
     else{
-      btnReload.innerHTML = 'Working on it...';
-      btnReload.disabled = true;
+      btnRun.innerHTML = 'Working on it...';
+      btnRun.disabled = true;
       rminInput.disabled = true;
       rmaxInput.disabled = true;
       colour1.disabled = true;
