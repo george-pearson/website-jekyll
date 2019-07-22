@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Putting SVGs On The Map"
-subtitle: "Packing circles in a map using Javascript."
+subtitle: "Packing circles in a map of the UK and Ireland using Javascript."
 imageSrc: "/assets/images/uk_and_ireland_circles.png"
 ---
 
