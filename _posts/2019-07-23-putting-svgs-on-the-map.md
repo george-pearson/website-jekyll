@@ -59,13 +59,13 @@ Here's the finished result:
 <div>
 <div style="padding:1em 0 1em 0;">
     <label for="rmin">Min radius:</label>
-    <input id="rmin" type="range" step="1" min="2" max="5" value="2"/>
-    <span style="padding-left:1em;" id="rminValueDisplay"></span>
+    <input id="rmin" type="range" step="0.25" min="2" max="5" value="2"/>
+    <span style="padding-left:0.5em;" id="rminValueDisplay"></span>
 </div>
 <div style="padding:1em 0 1em 0;">
     <label for="rmax">Max radius:</label>
-    <input id="rmax" type="range" step="1" min="5" max="8" value="6"/>
-    <span style="padding-left:1em;" id="rmaxValueDisplay"></span>
+    <input id="rmax" type="range" step="0.25" min="5" max="8" value="6"/>
+    <span style="padding-left:0.5em;" id="rmaxValueDisplay"></span>
 </div>
 <div style="padding-bottom:1em;">
     <input id="colour1" type="color" value="#993300" class="form-control"/>
