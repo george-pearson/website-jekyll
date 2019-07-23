@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="George Pearsons' Blog | Packing circles in a map of the UK and Ireland using Javascript.">
+    <title>Putting SVGs On The Map | George Pearson</title>
+    <link rel="stylesheet" href="/assets/css/main.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico">
+    
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-134616286-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-134616286-1');
+</script>
+
+</head>
+
+  <body>
+    <header>
+    <a href="/" aria-label="home"><div class="ma-boi"></div></a>
+    <nav>
+    <ul role="navigation" class="hidden">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/photos">Photos</a></li>
+    </ul>
+</nav>
+</header>
+		<main role="main">
+			<section class="post">
+    <div class="post-header">
+        <h1>Putting SVGs On The Map</h1>
+        <p class="post-date">July 23, 2019</p>
+        <a class="blue-link" data-disqus-identifier="/2019/07/23/putting-svgs-on-the-map" href="https://georgepearson.co.uk/2019/07/23/putting-svgs-on-the-map.html#disqus_thread">Comments</a>
+    </div>
+    <p>In the <a class="blue-link" href="/2019/06/17/circles-everywhere.html">previous blog post</a> I showed how to generate Scalable Vector Graphics (SVGs) of small circles packed inside a larger circle using JavaScript. In today’s post I’m packing circles inside a map of the UK and Ireland.</p>
+
+<p>The first thing we will need is a black and white map of the UK and Ireland. This is surprisingly difficult to find online, but after some intense search engine work I was able to get one:</p>
+
+<figure style="justify-self: center;">
+    <img id="uk_and_ireland" style="width:100%;" src="/assets/images/uk_and_ireland.png" />
+</figure>
+
+<p>A black and white image allows us to easily check whether a pixel in the image is land (black) or sea (white), using its RGB(Red, Green, Blue) values. White, RGB(255, 255, 255), pixels will have an average RGB of 255 whereas black, RGB(0, 0, 0), pixels will have an average RGB of 0.</p>
+
+<p>The majority of the code is much the same as <a class="blue-link" href="/2019/06/17/circles-everywhere.html">before</a>, we just need to change how the circles are placed:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">image</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">"#uk_and_ireland"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">LX</span> <span class="o">=</span> <span class="nx">image</span><span class="p">.</span><span class="nx">width</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">LY</span> <span class="o">=</span> <span class="nx">image</span><span class="p">.</span><span class="nx">height</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nx">figure</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">"canvas"</span><span class="p">);</span>
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">LX</span><span class="p">;</span>
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">LY</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">ctx</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">"2d"</span><span class="p">);</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nx">image</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">imageData</span> <span class="o">=</span> <span class="p">(</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">getImageData</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">LX</span><span class="p">,</span> <span class="nx">LY</span><span class="p">)).</span><span class="nx">data</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">placeCircle</span><span class="p">(</span><span class="nx">circles</span><span class="p">,</span> <span class="nx">radius</span><span class="p">,</span> <span class="nx">imageData</span><span class="p">,</span> <span class="nx">circleColours</span><span class="p">,</span> <span class="nx">LX</span><span class="p">,</span> <span class="nx">LY</span><span class="p">){</span>
+    <span class="c1">//The guard number: if we don't place a circle within this number of trials, we give up.</span>
+    <span class="kd">let</span> <span class="nx">guard</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="nx">guard</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
+        <span class="c1">// Pick a random position on the image.</span>
+        <span class="kd">const</span> <span class="nx">cx</span> <span class="o">=</span> <span class="nx">randomIntFromInterval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">LX</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="nx">cy</span> <span class="o">=</span> <span class="nx">randomIntFromInterval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">LY</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="nx">index</span> <span class="o">=</span> <span class="p">(</span><span class="nx">cx</span> <span class="o">+</span> <span class="nx">cy</span><span class="o">*</span><span class="nx">LX</span><span class="p">)</span><span class="o">*</span><span class="mi">4</span><span class="p">;</span>
+        <span class="kd">const</span> <span class="nx">red</span> <span class="o">=</span> <span class="nx">imageData</span><span class="p">[</span><span class="nx">index</span> <span class="o">+</span> <span class="mi">0</span><span class="p">];</span>
+        <span class="kd">const</span> <span class="nx">green</span> <span class="o">=</span> <span class="nx">imageData</span><span class="p">[</span><span class="nx">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+        <span class="kd">const</span> <span class="nx">blue</span> <span class="o">=</span> <span class="nx">imageData</span><span class="p">[</span><span class="nx">index</span> <span class="o">+</span> <span class="mi">2</span><span class="p">];</span>
+        <span class="kd">const</span> <span class="nx">average</span> <span class="o">=</span> <span class="p">(</span><span class="nx">red</span> <span class="o">+</span> <span class="nx">green</span> <span class="o">+</span> <span class="nx">blue</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">average</span> <span class="o">&lt;</span> <span class="mi">255</span><span class="o">/</span><span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">circles</span><span class="p">.</span><span class="nx">some</span><span class="p">((</span><span class="nx">existingCircle</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">overlapWith</span><span class="p">(</span><span class="nx">cx</span><span class="p">,</span> <span class="nx">cy</span><span class="p">,</span> <span class="nx">radius</span><span class="p">,</span> <span class="nx">existingCircle</span><span class="p">.</span><span class="nx">cx</span><span class="p">,</span> <span class="nx">existingCircle</span><span class="p">.</span><span class="nx">cy</span><span class="p">,</span> <span class="nx">existingCircle</span><span class="p">.</span><span class="nx">r</span><span class="p">))){</span>
+          <span class="kd">const</span> <span class="nx">circle</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'cx'</span><span class="p">:</span> <span class="nx">cx</span><span class="p">,</span> <span class="s1">'cy'</span><span class="p">:</span> <span class="nx">cy</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">:</span> <span class="nx">radius</span><span class="p">,</span> <span class="s1">'colour'</span><span class="p">:</span> <span class="nx">circleColours</span><span class="p">[</span><span class="nx">randomIntFromInterval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">)]};</span>
+          <span class="nx">circles</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">circle</span><span class="p">);</span>
+          <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nx">guard</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p>We can use the half way point between 0 and 255 (128) to determine if a pixel is black or white. If the pixel is black and the circle doesn’t overlap with any of the others then we place it otherwise we find a different location on the image.</p>
+
+<p>Here’s the finished result:</p>
+
+<div style="overflow-x: scroll;">
+    <img id="uk_and_ireland_circles" style="display:block;" src="/assets/images/uk_and_ireland_circles.png" />
+    <canvas id="myCanvas" style="display:None;"></canvas>
+<div>
+<div style="padding:1em 0 1em 0;">
+    <label for="rmin">Min radius:</label>
+    <input id="rmin" type="range" step="0.25" min="2" max="5" value="2" />
+    <span style="padding-left:0.5em;" id="rminValueDisplay"></span>
+</div>
+<div style="padding:1em 0 1em 0;">
+    <label for="rmax">Max radius:</label>
+    <input id="rmax" type="range" step="0.25" min="5" max="8" value="8" />
+    <span style="padding-left:0.5em;" id="rmaxValueDisplay"></span>
+</div>
+<div style="padding-bottom:1em;">
+    <input id="colour1" type="color" value="#993300" class="form-control" />
+    <input id="colour2" type="color" value="#a5c916" class="form-control" />
+    <input id="colour3" type="color" value="#00AA66" class="form-control" />
+    <input id="colour4" type="color" value="#FF9900" class="form-control" />
+    <button id="btnRun" class="button">Run</button>
+</div>
+
+As always all of the code is available on my <a href="https://github.com/george-pearson" class="blue-link">GitHub</a>. 
+
+<script src="/assets/scripts/circles-in-a-map.min.js"></script>
+</div></div>
+
+    <div id="disqus_thread"></div>
+</section>
+<script id="dsq-count-scr" src="//georgepearson-co-uk.disqus.com/count.js" async></script>
+<script>
+    var disqus_config = function () {
+    this.page.url = "https://georgepearson.co.uk/2019/07/23/putting-svgs-on-the-map.html";
+    this.page.identifier = "/2019/07/23/putting-svgs-on-the-map";
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://georgepearson-co-uk.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>
+    Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+
+		</main>
+    <footer>
+        <ul class="social-icons">
+                <li><a aria-label="Github" href="https://github.com/george-pearson"><i class="fab fa-github-alt fa-3x"></i></a></li>
+                <li><a aria-label="LinkedIn" href="https://linkedin.com/in/george-pearson-27244a30/"><i class="fab fa-linkedin fa-3x"></i></a></li>
+                <li><a aria-label="Mail" href="mailto:george-pearson.business@outlook.com"><i class="far fa-envelope fa-3x"></i></a></li>
+        </ul>
+        <p>&copy; George Pearson 2019</p>
+</footer>
+  </body>
+</html>
