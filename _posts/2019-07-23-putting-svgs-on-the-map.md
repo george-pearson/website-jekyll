@@ -64,7 +64,7 @@ Here's the finished result:
 </div>
 <div style="padding:1em 0 1em 0;">
     <label for="rmax">Max radius:</label>
-    <input id="rmax" type="range" step="0.25" min="5" max="8" value="6"/>
+    <input id="rmax" type="range" step="0.25" min="5" max="8" value="8"/>
     <span style="padding-left:0.5em;" id="rmaxValueDisplay"></span>
 </div>
 <div style="padding-bottom:1em;">
