@@ -51,11 +51,15 @@ function placeCircle(circles, radius, imageData, circleColours, LX, LY){
 ```
 We can use the half way point between 0 and 255 (128) to determine if a pixel is black or white. If the pixel is black and the circle doesn't overlap with any of the others then we place it otherwise we find a different location on the image.
 
-Here's the finished result:
+The finished result (with 3000 circle place attempts!) looks pretty good:
 
+<figure style="justify-self: center;">
+    <img id="uk_and_ireland_circles" style="width:100%;" src="/assets/images/uk_and_ireland_circles.png">
+</figure>
+
+Here's a smaller interactive version, so you can make your own:
 <div style="overflow-x: scroll;">
-    <img id="uk_and_ireland_circles" style="display:block;" src="/assets/images/uk_and_ireland_circles.png">
-    <canvas id="myCanvas" style="display:None;" id="myCanvas"></canvas>
+    <canvas id="myCanvas" id="myCanvas"></canvas>
 <div>
 <div style="padding:1em 0 1em 0;">
     <label for="rmin">Min radius:</label>
