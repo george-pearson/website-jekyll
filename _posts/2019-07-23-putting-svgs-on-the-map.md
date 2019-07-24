@@ -79,6 +79,7 @@ Here's a smaller interactive version, so you can make your own:
     <button id="btnRun" class="button">Run</button>
 </div>
 
-As always all of the code is available on my <a href="https://github.com/george-pearson" class="blue-link">GitHub</a>. 
+As always all of the code is available on my <a href="https://github.com/george-pearson" class="blue-link">GitHub</a>.
 
+<script src="/assets/scripts/circles-in-a-map.worker.min.js"></script>
 <script src="/assets/scripts/circles-in-a-map.min.js"></script>
