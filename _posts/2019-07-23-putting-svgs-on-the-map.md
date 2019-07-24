@@ -59,7 +59,8 @@ The finished result (with 3000 circle place attempts!) looks pretty good:
 
 Here's a smaller interactive version, so you can make your own:
 <div style="overflow-x: scroll;">
-    <canvas id="myCanvas" id="myCanvas"></canvas>
+    <img id="uk_and_ireland_small" style="display:block;" src="/assets/images/uk_and_ireland_small.png" />
+    <canvas id="myCanvas" style="display:none;"></canvas>
 <div>
 <div style="padding:1em 0 1em 0;">
     <label for="rmin">Min radius:</label>

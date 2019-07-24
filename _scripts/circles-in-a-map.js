@@ -1,13 +1,9 @@
 "use strict";
 (function() {
-  const image = document.querySelector("#uk_and_ireland");
+  const image = document.querySelector("#uk_and_ireland_small");
   const canvas = document.querySelector("#myCanvas");
   const btnRun = document.querySelector("#btnRun");
   const ctx = canvas.getContext("2d");
-  const LX = Math.round(image.naturalWidth*0.6);
-  const LY = Math.round(image.naturalHeight*0.6);
-  canvas.width = LX;
-  canvas.height = LY;
   const n = 800; // n is the maximum number of circles
   const colour1 = document.querySelector('#colour1');
   const colour2 = document.querySelector('#colour2');
@@ -21,10 +17,13 @@
   const rmaxValueDisplay = document.querySelector("#rmaxValueDisplay");
   rmaxValueDisplay.innerHTML = rmaxInput.value;
   rmaxInput.addEventListener("change", (e) => {rmaxValueDisplay.innerHTML = rmaxInput.value;});
-  ctx.drawImage(image, 0, 0, LX, LY);
 
   btnRun.addEventListener('click', ()=> {
     enableDiableUI(false);
+    const LX = Math.round(image.naturalWidth);
+    const LY = Math.round(image.naturalHeight);
+    canvas.width = LX;
+    canvas.height = LY;
     ctx.drawImage(image, 0, 0, LX, LY);
     const imageData = (ctx.getImageData(0, 0, LX, LY)).data;
     const circleColours = [colour1.value, colour2.value, colour3.value, colour4.value];
@@ -42,23 +41,23 @@
       'LY': LY
     }
     worker.postMessage([params]);
-  });
 
-  function onCirclesComplete(e){
-    const circles = e.data[0];
-    const svg = createSVGFromCircles(circles, LX, LY);
-    ctx.clearRect(0, 0, LX, LY);
-    const svgString = new XMLSerializer().serializeToString(svg);
-    const blob = new Blob([svgString], {type:"image/svg+xml;charset=utf-8"});
-    const url = URL.createObjectURL(blob);
-    const svgImg = new Image();
-    svgImg.onload = function() {
-        ctx.drawImage(svgImg, 0, 0);
-        URL.revokeObjectURL(url);
-        enableDiableUI(true);
+    function onCirclesComplete(e){
+      const circles = e.data[0];
+      const svg = createSVGFromCircles(circles, LX, LY);
+      ctx.clearRect(0, 0, LX, LY);
+      const svgString = new XMLSerializer().serializeToString(svg);
+      const blob = new Blob([svgString], {type:"image/svg+xml;charset=utf-8"});
+      const url = URL.createObjectURL(blob);
+      const svgImg = new Image();
+      svgImg.onload = function() {
+          ctx.drawImage(svgImg, 0, 0);
+          URL.revokeObjectURL(url);
+          enableDiableUI(true);
+      }
+      svgImg.src = url;
     }
-    svgImg.src = url;
-}
+  });
 
   function createSVGFromCircles(circles, LX, LY){
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -85,6 +84,8 @@
       colour2.disabled = false;
       colour3.disabled = false;
       colour4.disabled = false;
+      image.style.display = "none";
+      canvas.style.display = "block";
     }
     else{
       btnRun.innerHTML = 'Working on it...';
