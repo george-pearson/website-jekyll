@@ -2033,7 +2033,7 @@ function randomIntFromInterval(min, max){
 
 function overlapWith(cx1, cy1, r1, cx2, cy2, r2){
     // Do two circles overlap?
-    const d = Math.hypot(cx1-cx2, cy1-cy2);
+    const d = Math.sqrt((cx1-cx2)*(cx1-cx2) + (cy1-cy2)*(cy1-cy2))
     return d < r1 + r2;
 }
 ```
