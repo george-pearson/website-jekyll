@@ -37,7 +37,7 @@
         const ctx = canvas.getContext("2d");
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         const svgString = new XMLSerializer().serializeToString(svg);
-        const blob = new Blob([svgString], {type:"image/svg+xml;charset=utf-8"});
+        const blob = new Blob([svgString], {type:"image/svg+xml"});
         const url = URL.createObjectURL(blob);
         const img = new Image();
         img.onload = function() {
