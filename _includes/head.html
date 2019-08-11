@@ -1,11 +1,26 @@
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="George Pearsons' Blog | {{ page.subtitle }}">
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="George Pearsons' Blog | {{ page.subtitle }}"/>
+    <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+    <meta property="og:site_name" content="{{ site.url }}" />
+    <meta property="og:description" content="{{ page.subtitle }}" />
+    <meta property="og:title" content="{{ page.title }}" />
+    <meta name="twitter:title" content="{{ page.title }}"/>
+    <meta name="twitter:creator" content="@georgepearson_"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:description" content="{{ page.subtitle }}"/>
+    {% if page.imageSrc %}
+    <meta property="og:image" content="{{ site.url }}{{ page.imageSrc }}" />
+    <meta name="twitter:image" content="{{ site.url }}{{ page.imageSrc }}"/>
+    {% else %}
+    <meta property="og:image" content="{{ site.url }}/assets/images/maboi-brackets.png" />
+    <meta name="twitter:image" content="{{ site.url }}/assets/images/maboi-brackets.png"/>
+    {% endif %}
     <title>{{ page.title }} | George Pearson</title>
-    <link rel="stylesheet" href="/assets/css/main.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico">
+    <link rel="stylesheet" href="/assets/css/main.min.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico"/>
     {% include scripts.html %}
 </head>
