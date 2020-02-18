@@ -1,6 +1,6 @@
 # Blog
 
-This is a blog created by George Pearson, [https://georgepearson.co.uk](https://georgepearson.co.uk).
+This is an old blog created by George Pearson, [https://georgepearson.co.uk](https://georgepearson.co.uk).
 
 ## This was set up using:
  - [Jekyll](https://jekyllrb.com/)
